@@ -4,9 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,14 +21,40 @@ import java.util.ArrayList;
 
 public abstract class GameActivity extends AppCompatActivity {
 
-    private Button pause;
-    private TextView timer;
+    protected Button pause;
+    protected TextView timer;
     private CardView sideBar;
-    private ArrayList<ImageView> cards = new ArrayList<>();
+    protected GridView cards;
 
-    private int id[] = {R.id.card_1, R.id.card_2, R.id.card_3, R.id.card_4, R.id.card_5, R.id.card_6,
-            R.id.card_7, R.id.card_8, R.id.card_9, R.id.card_10, R.id.card_11, R.id.card_12, R.id.card_13,
-            R.id.card_14, R.id.card_15, R.id.card_16, R.id.card_17, R.id.card_18, R.id.card_19, R.id.card_20};
+    class ImageAdapter extends BaseAdapter{
+
+        private Context context;
+
+        ImageAdapter(Context context){
+            this.context = context;
+        }
+
+        @Override
+        public int getCount() {
+            return 20;
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int i, View view, ViewGroup viewGroup) {
+            return null;
+        }
+    }
+
 
 
     @Override
@@ -31,8 +62,7 @@ public abstract class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        for (int i = 0; i < 20; i++)
-            cards.add((ImageView) findViewById(id[i]));
+        cards = findViewById(R.id.cards_view);
 
         pause = findViewById(R.id.pause);
         pause.setOnClickListener(new View.OnClickListener() {
@@ -59,4 +89,5 @@ public abstract class GameActivity extends AppCompatActivity {
     abstract void gamePause();
 
     abstract void endTurn();
+
 }

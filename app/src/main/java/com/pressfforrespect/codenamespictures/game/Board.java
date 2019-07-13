@@ -23,11 +23,13 @@ public class Board {
         HashSet<Integer> picNums = new HashSet<>();
 
         while (picNums.size() < 20) {
-            picNums.add(rand.nextInt(80) + 1);
+            int cardNum = rand.nextInt(80) + 1;
+            if(!picNums.contains(cardNum))
+                picNums.add(cardNum);
         }
         Object[] picNumsArr = picNums.toArray();
         for (int i = 0; i < 20; i++) {
-            pics[i / 5][i % 5] = Integer.toString((int) picNumsArr[i]) + ".png";
+            pics[i / 5][i % 5] = (int) picNumsArr[i] + ".png";
         }
     }
 
@@ -52,5 +54,16 @@ public class Board {
         for (int i = 0; i < 20; i++) {
             team[i / 5][i % 5] = initial[i];
         }
+    }
+
+    public void endTurn(){
+        if(starter == Team.RED)
+            starter = Team.BLUE;
+        else
+            starter = Team.RED;
+    }
+
+    public Team getStarter() {
+        return starter;
     }
 }
