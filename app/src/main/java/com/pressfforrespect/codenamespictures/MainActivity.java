@@ -44,6 +44,15 @@ public class MainActivity extends AppCompatActivity {
                 selectSetting();
             }
         });
+
+        Button quit = findViewById(R.id.quit);
+        quit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                System.exit(0);
+            }
+        });
     }
 
     void selectPlay(){
