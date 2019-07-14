@@ -1,26 +1,29 @@
 package com.pressfforrespect.codenamespictures;
 
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.FragmentTransaction;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
-import androidx.cardview.widget.CardView;
-import androidx.fragment.app.FragmentTransaction;
-
 import com.pressfforrespect.codenamespictures.game.Board;
+import com.pressfforrespect.codenamespictures.game.Team;
 
-public class SpyMasterActivity extends GameActivity{
+public class FieldOperatorActivity extends GameActivity {
 
     private Board board;
-    final static private String PAUSE_FRAGMENT_TAG = "Pause";
+    private CountDownTimer timer;
 
-    class CardAdapter extends ImageAdapter{
+    class CardAdapter extends GameActivity.ImageAdapter {
 
         CardAdapter(Context context){
             super(context);
@@ -36,23 +39,6 @@ public class SpyMasterActivity extends GameActivity{
             if(view == null){
                 View gridView = inflater.inflate(R.layout.card_layout, null);
                 card = gridView.findViewById(R.id.card_element);
-
-                switch (board.getTeam()[i]){
-                    case RED:
-                        card.setCardBackgroundColor(Color.parseColor(getResources().getString(R.color.colorRed)));
-                        break;
-                    case BLUE:
-                        card.setCardBackgroundColor(Color.parseColor(getResources().getString(R.color.colorBlue)));
-                        break;
-                    case ASSASSIN:
-                        card.setCardBackgroundColor(Color.parseColor(getResources().getString(R.color.colorBlack)));
-                        break;
-                    case BYSTANDER:
-                        card.setCardBackgroundColor(Color.parseColor(getResources().getString(R.color.colorCream)));
-                        break;
-                    default:
-                        card.setCardBackgroundColor(Color.parseColor(getResources().getString(R.color.colorCream)));
-                }
 
             }else{
                 card = (CardView) view;
@@ -70,11 +56,21 @@ public class SpyMasterActivity extends GameActivity{
         board = new Board();
         super.changeColor(board.getStarter());
 
-        CardAdapter cardAdapter = new CardAdapter(this);
+        FieldOperatorActivity.CardAdapter cardAdapter = new FieldOperatorActivity.CardAdapter(this);
         for(int i = 0; i < 20; i++){
             cardAdapter.boardCards[i] = cardAdapter.cardId[board.getPicNums().get(i)];
         }
+
         cards.setAdapter(cardAdapter);
+        cards.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                cardClicked((CardView) view, i);
+
+            }
+        });
 
         pause.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,7 +79,25 @@ public class SpyMasterActivity extends GameActivity{
             }
         });
 
-        endTurnButton.setVisibility(View.GONE);
+        endTurnButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                endTurn();
+            }
+        });
+
+        timer = new CountDownTimer(120000, 1000) {
+
+            @SuppressLint("SetTextI18n")
+            public void onTick(long millisUntilFinished) {
+                pause.setText(Integer.toString((int) (millisUntilFinished/1000)));
+            }
+
+            public void onFinish() {
+                endTurn();
+            }
+        };
+        timer.start();
 
 
     }
@@ -107,10 +121,39 @@ public class SpyMasterActivity extends GameActivity{
     void endTurn() {
         board.endTurn();
         super.changeColor(board.getStarter());
+        timer.start();
     }
 
     @Override
     void endGame() {
+        endTurn();
+    }
 
+    @SuppressLint("ResourceType")
+    private void cardClicked(CardView card, int i){
+
+        Team cardTeam =  board.getTeam()[i];
+
+        switch (cardTeam){
+            case RED:
+                card.setCardBackgroundColor(Color.parseColor(getResources().getString(R.color.colorRed)));
+                break;
+            case BLUE:
+                card.setCardBackgroundColor(Color.parseColor(getResources().getString(R.color.colorBlue)));
+                break;
+            case ASSASSIN:
+                card.setCardBackgroundColor(Color.parseColor(getResources().getString(R.color.colorBlack)));
+                break;
+            case BYSTANDER:
+                card.setCardBackgroundColor(Color.parseColor(getResources().getString(R.color.colorCream)));
+                break;
+            default:
+                card.setCardBackgroundColor(Color.parseColor(getResources().getString(R.color.colorCream)));
+        }
+
+        if(cardTeam == Team.ASSASSIN)
+            endGame();
+        else if(board.getStarter() != cardTeam)
+            endTurn();
     }
 }

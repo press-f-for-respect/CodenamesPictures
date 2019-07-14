@@ -17,6 +17,9 @@
             android:name=".SpyMasterActivity"
             android:screenOrientation="landscape" />
         <activity
+            android:name=".FieldOperatorActivity"
+            android:screenOrientation="landscape"/>
+        <activity
             android:name=".SettingActivity"
             android:screenOrientation="landscape" />
         <activity
