@@ -8,7 +8,7 @@ import java.util.Random;
 
 
 public class Board {
-    private Team[][] team = new Team[4][5];
+    private Team[] team = new Team[20];
     private Team starter;
     private ArrayList<Integer> picNums = new ArrayList<>();
     private Random rand = new Random();
@@ -46,9 +46,7 @@ public class Board {
 
         Collections.shuffle(Arrays.asList(initial));
 
-        for (int i = 0; i < 20; i++) {
-            team[i / 5][i % 5] = initial[i];
-        }
+        team = initial;
     }
 
     public void endTurn(){
@@ -66,7 +64,7 @@ public class Board {
         return picNums;
     }
 
-    public Team[][] getTeam() {
+    public Team[] getTeam() {
         return team;
     }
 }

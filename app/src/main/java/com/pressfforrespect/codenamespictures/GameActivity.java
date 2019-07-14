@@ -5,12 +5,14 @@ import androidx.cardview.widget.CardView;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,9 +24,9 @@ import java.util.ArrayList;
 public abstract class GameActivity extends AppCompatActivity {
 
     protected Button pause;
-    protected TextView timer;
-    private CardView sideBar;
     protected GridView cards;
+    protected FrameLayout pauseLayout;
+    protected Boolean isPaused = false;
 
     class ImageAdapter extends BaseAdapter{
 
@@ -92,17 +94,20 @@ public abstract class GameActivity extends AppCompatActivity {
             }
         });
 
-        timer = findViewById(R.id.timer);
-        sideBar = findViewById(R.id.side_bar);
+        pauseLayout = findViewById(R.id.pause_container);
+        pauseLayout.setVisibility(View.GONE);
 
     }
 
-    @SuppressLint("ResourceAsColor")
+    @SuppressLint({"ResourceAsColor", "ResourceType"})
     public void changeColor(Team team){
-        if(team == Team.BLUE)
-            sideBar.setBackgroundColor(R.color.colorBlue);
-        else
-            sideBar.setBackgroundColor(R.color.colorRed);
+        if(team == Team.BLUE) {
+            pause.setBackgroundColor(Color.parseColor(getResources().getString(R.color.colorBlue)));
+            pauseLayout.setBackgroundColor(Color.parseColor(getResources().getString(R.color.colorBlue)));
+        }else {
+            pause.setBackgroundColor(Color.parseColor(getResources().getString(R.color.colorRed)));
+            pauseLayout.setBackgroundColor(Color.parseColor(getResources().getString(R.color.colorRed)));
+        }
 
     }
 

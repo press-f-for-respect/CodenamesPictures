@@ -6,42 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".GameActivity">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/side_bar"
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/pause"
+        style="@style/Widget.MaterialComponents.Button.Icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        app:icon="@drawable/pause_vec"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:cardBackgroundColor="@color/colorBlue">
+        app:layout_constraintTop_toTopOf="parent"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginBottom="5dp">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/pause"
-                style="@style/Widget.MaterialComponents.Button.Icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:icon="@drawable/pause_vec" />
-
-            <TextView
-                android:id="@+id/timer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="4:00"
-                android:textColor="@android:color/background_light"
-                android:gravity="center"
-                android:textSize="20sp"/>
-        </LinearLayout>
-
-    </com.google.android.material.card.MaterialCardView>
 
     <GridView
         android:id="@+id/cards_view"
@@ -52,7 +29,12 @@
         android:numColumns="5"
         android:verticalSpacing="20dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/pause_container"/>
 
     <!--<LinearLayout-->
         <!--android:layout_width="wrap_content"-->
