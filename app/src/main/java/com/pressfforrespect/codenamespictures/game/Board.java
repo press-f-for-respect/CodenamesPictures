@@ -1,15 +1,16 @@
 package com.pressfforrespect.codenamespictures.game;
 
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
-import java.util.HashSet;
 
 
 public class Board {
-    private Team[][] team = new Team[5][4];
+    private Team[][] team = new Team[4][5];
     private Team starter;
-    private String[][] pics = new String[5][4];
+    private ArrayList<Integer> picNums = new ArrayList<>();
     private Random rand = new Random();
 
 
@@ -20,16 +21,10 @@ public class Board {
     }
 
     private void setPics() {
-        HashSet<Integer> picNums = new HashSet<>();
-
         while (picNums.size() < 20) {
-            int cardNum = rand.nextInt(80) + 1;
+            int cardNum = rand.nextInt(80);
             if(!picNums.contains(cardNum))
                 picNums.add(cardNum);
-        }
-        Object[] picNumsArr = picNums.toArray();
-        for (int i = 0; i < 20; i++) {
-            pics[i / 5][i % 5] = (int) picNumsArr[i] + ".png";
         }
     }
 
@@ -65,5 +60,13 @@ public class Board {
 
     public Team getStarter() {
         return starter;
+    }
+
+    public ArrayList<Integer> getPicNums() {
+        return picNums;
+    }
+
+    public Team[][] getTeam() {
+        return team;
     }
 }

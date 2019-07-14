@@ -45,17 +45,14 @@
 
     <GridView
         android:id="@+id/cards_view"
-        android:layout_width="wrap_content"
+        android:layout_width="800dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="32dp"
-        app:layout_constraintBottom_toTopOf="@+id/side_bar"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="100dp"
+        android:numColumns="5"
+        android:verticalSpacing="20dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:numColumns="5"></GridView>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!--<LinearLayout-->
         <!--android:layout_width="wrap_content"-->

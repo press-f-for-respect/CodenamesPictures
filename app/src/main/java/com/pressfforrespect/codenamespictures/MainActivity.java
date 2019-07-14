@@ -56,7 +56,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void selectPlay(){
-
+        Intent myIntent = new Intent(this, SpyMasterActivity.class);
+        startActivity(myIntent);
     }
 
     void selectHelp(){
