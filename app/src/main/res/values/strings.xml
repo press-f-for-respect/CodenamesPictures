@@ -8,4 +8,6 @@
     <string name="sound">Sound</string>
     <string name="name">Device Name</string>
     <string name="quit">Quit</string>
+    <string name="f_op">Field Operatives</string>
+    <string name="spymaster">Spy Masters</string>
 </resources>

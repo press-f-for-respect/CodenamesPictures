@@ -19,8 +19,8 @@
     </FrameLayout>
 
     <LinearLayout
-        android:layout_width="197dp"
-        android:layout_height="350dp"
+        android:layout_width="126dp"
+        android:layout_height="248dp"
         android:layout_marginStart="256dp"
         android:layout_marginEnd="256dp"
         android:gravity="center_vertical"
@@ -35,28 +35,40 @@
             android:id="@+id/play"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:text="@string/play_button" />
+            android:padding="10dp"
+            android:text="@string/play_button"
+            app:icon="@drawable/play_butt"
+            app:iconSize="30dp"
+            app:iconGravity="end"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/setting"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:text="@string/setting_button" />
+            android:padding="10dp"
+            android:text="@string/setting_button"
+            app:icon="@drawable/settings"
+            app:iconGravity="start"
+            app:iconSize="30dp"/>
 
         <com.google.android.material.button.MaterialButton
+            app:iconSize="30dp"
+            app:icon="@drawable/question_mark"
+            app:iconGravity="end"
             android:id="@+id/help"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="20dp"
+            android:padding="10dp"
             android:text="@string/help_button" />
 
         <com.google.android.material.button.MaterialButton
+            app:iconSize="30dp"
+            app:icon="@drawable/emergency_exit"
+            app:iconGravity="start"
             android:id="@+id/quit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="20dp"
+            android:padding="10dp"
             android:text="@string/quit" />
     </LinearLayout>
 
