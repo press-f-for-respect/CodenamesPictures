@@ -7,4 +7,5 @@
     <color name="colorRed">#A12C2E</color>
     <color name="colorBlack">#505050</color>
     <color name="colorCream">#BAAC9C</color>
+    <color name="Transparent">#00000000</color>
 </resources>

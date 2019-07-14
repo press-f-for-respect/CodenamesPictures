@@ -24,9 +24,11 @@ import java.util.ArrayList;
 public abstract class GameActivity extends AppCompatActivity {
 
     protected Button pause;
+    protected Button endTurnButton;
     protected GridView cards;
     protected FrameLayout pauseLayout;
     protected Boolean isPaused = false;
+    final static public String PAUSE_FRAGMENT_TAG = "Pause";
 
     class ImageAdapter extends BaseAdapter{
 
@@ -97,6 +99,8 @@ public abstract class GameActivity extends AppCompatActivity {
         pauseLayout = findViewById(R.id.pause_container);
         pauseLayout.setVisibility(View.GONE);
 
+        endTurnButton = findViewById(R.id.end_turn);
+
     }
 
     @SuppressLint({"ResourceAsColor", "ResourceType"})
@@ -114,5 +118,7 @@ public abstract class GameActivity extends AppCompatActivity {
     abstract void gamePause();
 
     abstract void endTurn();
+
+    abstract void endGame();
 
 }

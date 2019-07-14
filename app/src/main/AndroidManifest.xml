@@ -11,8 +11,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".SpyMasterActivity"
+            android:name=".FieldOperatorActivity"
             android:screenOrientation="landscape"></activity>
+        <activity
+            android:name=".SpyMasterActivity"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".SettingActivity"
             android:screenOrientation="landscape" />
