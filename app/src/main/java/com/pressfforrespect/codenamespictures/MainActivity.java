@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
     private Button play;
     private Button help;
     private Button setting;
+    private boolean clicked;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,16 +57,33 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        clicked = false;
+        //TODO change menu music
+        BackgroundMusic.getInstance(this, R.raw.ykc).play();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(!clicked)
+            BackgroundMusic.getInstance().pause();
+    }
+
     void selectPlay(){
+        clicked = true;
         Intent myIntent = new Intent(this, RoleSelectActivity.class);
         startActivity(myIntent);
     }
 
     void selectHelp(){
-
+        clicked = true;
     }
 
     void selectSetting(){
+        clicked = true;
         Intent myIntent = new Intent(this, SettingActivity.class);
         startActivity(myIntent);
     }

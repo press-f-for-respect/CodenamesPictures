@@ -22,6 +22,7 @@ public class FieldOperatorActivity extends GameActivity {
 
     private Board board;
     private CountDownTimer timer;
+    private long timeUntilFinished;
 
     class CardAdapter extends GameActivity.ImageAdapter {
 
@@ -91,6 +92,7 @@ public class FieldOperatorActivity extends GameActivity {
             @SuppressLint("SetTextI18n")
             public void onTick(long millisUntilFinished) {
                 pause.setText(Integer.toString((int) (millisUntilFinished/1000)));
+                timeUntilFinished = millisUntilFinished;
             }
 
             public void onFinish() {
@@ -106,13 +108,28 @@ public class FieldOperatorActivity extends GameActivity {
     void gamePause() {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         if(!isPaused) {
-            transaction.add(R.id.pause_container, new PauseFragment(), PAUSE_FRAGMENT_TAG);
+            transaction.add(R.id.pause_container, new PauseFragment(this), PAUSE_FRAGMENT_TAG);
             transaction.addToBackStack(null);
             transaction.commit();
             pauseLayout.setVisibility(View.VISIBLE);
+            timer.cancel();
         }else{
             transaction.remove(getSupportFragmentManager().findFragmentByTag(PAUSE_FRAGMENT_TAG)).commit();
             pauseLayout.setVisibility(View.GONE);
+
+            timer = new CountDownTimer(timeUntilFinished, 1000) {
+
+                @SuppressLint("SetTextI18n")
+                public void onTick(long millisUntilFinished) {
+                    pause.setText(Integer.toString((int) (millisUntilFinished/1000)));
+                    timeUntilFinished = millisUntilFinished;
+                }
+
+                public void onFinish() {
+                    endTurn();
+                }
+            };
+            timer.start();
         }
         isPaused = !isPaused;
     }
@@ -120,13 +137,27 @@ public class FieldOperatorActivity extends GameActivity {
     @Override
     void endTurn() {
         board.endTurn();
-        super.changeColor(board.getStarter());
+        changeColor(board.getStarter());
+
+        timer.cancel();
+        timer = new CountDownTimer(120000, 1000) {
+
+            @SuppressLint("SetTextI18n")
+            public void onTick(long millisUntilFinished) {
+                pause.setText(Integer.toString((int) (millisUntilFinished/1000)));
+                timeUntilFinished = millisUntilFinished;
+            }
+
+            public void onFinish() {
+                endTurn();
+            }
+        };
         timer.start();
     }
 
     @Override
     void endGame() {
-        endTurn();
+
     }
 
     @SuppressLint("ResourceType")

@@ -101,6 +101,10 @@ public abstract class GameActivity extends AppCompatActivity {
 
         endTurnButton = findViewById(R.id.end_turn);
 
+        BackgroundMusic.getInstance().stop();
+        //TODO change game music
+        BackgroundMusic.getInstance(this, R.raw.ykc).play();
+
     }
 
     @SuppressLint({"ResourceAsColor", "ResourceType"})
@@ -121,4 +125,27 @@ public abstract class GameActivity extends AppCompatActivity {
 
     abstract void endGame();
 
+    protected void finishGame(){
+        BackgroundMusic.getInstance().stop();
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        gamePause();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(BackgroundMusic.getInstance() != null && !isPaused)
+            BackgroundMusic.getInstance().pause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(BackgroundMusic.getInstance() != null)
+            BackgroundMusic.getInstance().play();
+    }
 }

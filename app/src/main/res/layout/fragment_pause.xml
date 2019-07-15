@@ -12,18 +12,11 @@
         android:orientation="vertical">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/continue_game"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:text="@string/help_button" />
-
-        <com.google.android.material.button.MaterialButton
             android:id="@+id/back_menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="20dp"
-            android:text="@string/quit" />
+            android:text="@string/main_menu" />
     </LinearLayout>
 
 </FrameLayout>
