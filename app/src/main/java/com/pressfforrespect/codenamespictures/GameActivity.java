@@ -119,6 +119,8 @@ public abstract class GameActivity extends AppCompatActivity {
 
     abstract void endTurn();
 
-    abstract void endGame();
+    protected void endGame(){
+        finish();
+    }
 
 }
