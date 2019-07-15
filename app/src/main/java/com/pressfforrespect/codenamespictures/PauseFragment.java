@@ -30,7 +30,7 @@ public class PauseFragment extends Fragment {
         goMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                game.endGame();
+                game.finishGame();
             }
         });
         return fragmentView;

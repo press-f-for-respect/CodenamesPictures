@@ -137,8 +137,27 @@ public class FieldOperatorActivity extends GameActivity {
     @Override
     void endTurn() {
         board.endTurn();
-        super.changeColor(board.getStarter());
+        changeColor(board.getStarter());
+
+        timer.cancel();
+        timer = new CountDownTimer(120000, 1000) {
+
+            @SuppressLint("SetTextI18n")
+            public void onTick(long millisUntilFinished) {
+                pause.setText(Integer.toString((int) (millisUntilFinished/1000)));
+                timeUntilFinished = millisUntilFinished;
+            }
+
+            public void onFinish() {
+                endTurn();
+            }
+        };
         timer.start();
+    }
+
+    @Override
+    void endGame() {
+
     }
 
     @SuppressLint("ResourceType")

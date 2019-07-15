@@ -108,4 +108,9 @@ public class SpyMasterActivity extends GameActivity{
         board.endTurn();
         super.changeColor(board.getStarter());
     }
+
+    @Override
+    void endGame() {
+
+    }
 }
