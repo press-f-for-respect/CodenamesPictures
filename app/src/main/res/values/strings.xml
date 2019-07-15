@@ -8,4 +8,8 @@
     <string name="sound">Sound</string>
     <string name="name">Device Name</string>
     <string name="quit">Quit</string>
+    <string name="end_turn">End Turn</string>
+    <string name="f_op">Field Operatives</string>
+    <string name="spymaster">Spy Masters</string>
+    <string name="main_menu">Main Menu</string>
 </resources>

@@ -1,6 +1,8 @@
 package com.pressfforrespect.codenamespictures;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,12 +11,14 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.pressfforrespect.codenamespictures.game.Board;
 
 public class SpyMasterActivity extends GameActivity{
 
     private Board board;
+    final static private String PAUSE_FRAGMENT_TAG = "Pause";
 
     class CardAdapter extends ImageAdapter{
 
@@ -22,6 +26,7 @@ public class SpyMasterActivity extends GameActivity{
             super(context);
         }
 
+        @SuppressLint({"ResourceAsColor", "ResourceType"})
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
 
@@ -31,10 +36,29 @@ public class SpyMasterActivity extends GameActivity{
             if(view == null){
                 View gridView = inflater.inflate(R.layout.card_layout, null);
                 card = gridView.findViewById(R.id.card_element);
+
+                switch (board.getTeam()[i]){
+                    case RED:
+                        card.setCardBackgroundColor(Color.parseColor(getResources().getString(R.color.colorRed)));
+                        break;
+                    case BLUE:
+                        card.setCardBackgroundColor(Color.parseColor(getResources().getString(R.color.colorBlue)));
+                        break;
+                    case ASSASSIN:
+                        card.setCardBackgroundColor(Color.parseColor(getResources().getString(R.color.colorBlack)));
+                        break;
+                    case BYSTANDER:
+                        card.setCardBackgroundColor(Color.parseColor(getResources().getString(R.color.colorCream)));
+                        break;
+                    default:
+                        card.setCardBackgroundColor(Color.parseColor(getResources().getString(R.color.colorCream)));
+                }
+
             }else{
                 card = (CardView) view;
             }
             ((ImageView)((FrameLayout) card.getChildAt(0)).getChildAt(0)).setImageResource(boardCards[i]);
+
             return card;
         }
     }
@@ -52,16 +76,41 @@ public class SpyMasterActivity extends GameActivity{
         }
         cards.setAdapter(cardAdapter);
 
+        pause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gamePause();
+            }
+        });
+
+        endTurnButton.setVisibility(View.GONE);
+
 
     }
 
     @Override
     void gamePause() {
-
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        if(!isPaused) {
+            transaction.add(R.id.pause_container, new PauseFragment(this), PAUSE_FRAGMENT_TAG);
+            transaction.addToBackStack(null);
+            transaction.commit();
+            pauseLayout.setVisibility(View.VISIBLE);
+        }else{
+            transaction.remove(getSupportFragmentManager().findFragmentByTag(PAUSE_FRAGMENT_TAG)).commit();
+            pauseLayout.setVisibility(View.GONE);
+        }
+        isPaused = !isPaused;
     }
 
     @Override
     void endTurn() {
+        board.endTurn();
+        super.changeColor(board.getStarter());
+    }
+
+    @Override
+    void endGame() {
 
     }
 }

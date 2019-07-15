@@ -39,15 +39,6 @@ public class SettingActivity extends AppCompatActivity {
         deviceName = findViewById(R.id.input_device_name);
         deviceName.setText(sharedPref.getString(String.valueOf(R.id.input_device_name), Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID).substring(0,5)));
 
-        Button back = findViewById(R.id.back);
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                putInSharedPref();
-                finish();
-            }
-        });
-
 
     }
 
@@ -61,5 +52,10 @@ public class SettingActivity extends AppCompatActivity {
         editor.commit();
     }
 
+    @Override
+    protected void onDestroy() {
+        putInSharedPref();
+        super.onDestroy();
+    }
 
 }
