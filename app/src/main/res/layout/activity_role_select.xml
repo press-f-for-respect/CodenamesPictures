@@ -9,21 +9,31 @@
     android:orientation="horizontal"
     android:weightSum="100">
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="50"
-        android:text="@string/f_op"
-        android:drawableTop="@drawable/duo"
-        android:id="@+id/field_op" />
 
-    <Button
+    <ImageButton
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="50"
-        android:text="@string/spymaster"
-        android:drawableTop="@drawable/spy"
-        android:id="@+id/spymaster_butt"/>
+        android:src="@drawable/duo"
+        android:id="@+id/field_op"
+        android:scaleType="centerCrop"
+        android:padding="0dp"
+        android:background="?attr/selectableItemBackgroundBorderless"/>
+
+
+
+    <ImageButton
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="50"
+        android:src="@drawable/spy"
+        android:id="@+id/spymaster"
+        android:scaleType="centerCrop"
+        android:padding="0dp"
+        android:background="?attr/selectableItemBackgroundBorderless"/>
+
+
+
 
 
 </LinearLayout>
