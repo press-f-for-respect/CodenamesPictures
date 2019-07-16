@@ -28,15 +28,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        app:layout_constraintVertical_weight="1">
+        app:layout_constraintVertical_weight="1"
+        android:weightSum="4">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/play"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:padding="10dp"
             android:text="@string/play_button"
             app:icon="@drawable/play_butt"
+            android:layout_weight="1"
             app:iconSize="30dp"
             app:iconGravity="end"/>
 
@@ -48,7 +50,8 @@
             android:text="@string/setting_button"
             app:icon="@drawable/settings"
             app:iconGravity="start"
-            app:iconSize="30dp"/>
+            app:iconSize="30dp"
+            android:layout_weight="1"/>
 
         <com.google.android.material.button.MaterialButton
             app:iconSize="30dp"
@@ -58,7 +61,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="@string/help_button" />
+            android:text="@string/help_button"
+            android:layout_weight="1"/>
 
         <com.google.android.material.button.MaterialButton
             app:iconSize="30dp"
@@ -68,7 +72,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="@string/quit" />
+            android:text="@string/quit"
+            android:layout_weight="1"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
