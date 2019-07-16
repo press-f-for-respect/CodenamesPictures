@@ -6,7 +6,9 @@ import androidx.cardview.widget.CardView;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -29,6 +31,8 @@ public abstract class GameActivity extends AppCompatActivity {
     protected FrameLayout pauseLayout;
     protected Boolean isPaused = false;
     final static public String PAUSE_FRAGMENT_TAG = "Pause";
+    protected int width;
+    protected int height;
 
     class ImageAdapter extends BaseAdapter{
 
@@ -56,6 +60,11 @@ public abstract class GameActivity extends AppCompatActivity {
 
         ImageAdapter(Context context){
             this.context = context;
+            Display display = getWindowManager().getDefaultDisplay();
+            Point size = new Point();
+            display.getSize(size);
+            width = size.x;
+            height = size.y;
         }
 
         @Override
