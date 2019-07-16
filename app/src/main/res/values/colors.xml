@@ -10,4 +10,5 @@
     <color name="Transparent">#00000000</color>
     <color name="colorWhite">#FFFFFFFF</color>
     <color name="colorBlackk">#FF000000</color>
+    <color name="colorEndTurnButton">#906F6F6F</color>
 </resources>

@@ -10,11 +10,15 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.pressfforrespect.codenamespictures.game.Board;
+
+import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
+import org.adw.library.widgets.discreteseekbar.internal.compat.SeekBarCompat;
 
 public class SpyMasterActivity extends GameActivity{
 
@@ -87,7 +91,16 @@ public class SpyMasterActivity extends GameActivity{
             }
         });
 
-        endTurnButton.setVisibility(View.GONE);
+        endTurnButton.setText(R.string.spymaster_turn);
+
+        endTurnButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                endTurn();
+            }
+        });
+
+        dummyView.setVisibility(View.GONE);
 
 
     }

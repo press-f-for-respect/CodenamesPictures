@@ -14,4 +14,6 @@
     <string name="main_menu">Main Menu</string>
     <string name="enable_wifi">Enable Wifi</string>
     <string name="discover">Discover</string>
+    <string name="seekbar_str"> Number\nof cards:</string>
+    <string name="spymaster_turn">Pass to spies</string>
 </resources>

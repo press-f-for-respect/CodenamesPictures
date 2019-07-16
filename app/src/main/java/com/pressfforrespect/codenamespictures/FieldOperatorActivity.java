@@ -17,6 +17,7 @@ import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 
+import com.pressfforrespect.codenamespictures.Animation.FlipAnimation;
 import com.pressfforrespect.codenamespictures.game.Board;
 import com.pressfforrespect.codenamespictures.game.Team;
 
@@ -90,6 +91,15 @@ public class FieldOperatorActivity extends GameActivity {
             }
         });
 
+//        cards.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+//
+//            @Override
+//            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+//
+//                return true;
+//            }
+//        });
+
         pause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -117,6 +127,9 @@ public class FieldOperatorActivity extends GameActivity {
             }
         };
         timer.start();
+
+        discreteSeekBar.setVisibility(View.GONE);
+        description.setVisibility(View.GONE);
 
     }
 
@@ -181,22 +194,26 @@ public class FieldOperatorActivity extends GameActivity {
 
         Team cardTeam =  board.getTeam()[i];
 
+        int color;
         switch (cardTeam){
             case RED:
-                card.setCardBackgroundColor(Color.parseColor(getResources().getString(R.color.colorRed)));
+                color = Color.parseColor(getResources().getString(R.color.colorRed));
                 break;
             case BLUE:
-                card.setCardBackgroundColor(Color.parseColor(getResources().getString(R.color.colorBlue)));
+                color = Color.parseColor(getResources().getString(R.color.colorBlue));
                 break;
             case ASSASSIN:
-                card.setCardBackgroundColor(Color.parseColor(getResources().getString(R.color.colorBlack)));
+                color = Color.parseColor(getResources().getString(R.color.colorBlack));
                 break;
             case BYSTANDER:
-                card.setCardBackgroundColor(Color.parseColor(getResources().getString(R.color.colorCream)));
+                color = Color.parseColor(getResources().getString(R.color.colorCream));
                 break;
             default:
-                card.setCardBackgroundColor(Color.parseColor(getResources().getString(R.color.colorCream)));
+                color = Color.parseColor(getResources().getString(R.color.colorCream));
         }
+
+        FlipAnimation flipAnimation = new FlipAnimation(card, color);
+        card.startAnimation(flipAnimation);
 
         if(cardTeam == Team.ASSASSIN)
             endGame();

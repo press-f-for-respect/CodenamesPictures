@@ -15,8 +15,11 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.pressfforrespect.codenamespictures.game.Team;
+
+import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 
 
 public abstract class GameActivity extends AppCompatActivity {
@@ -30,6 +33,9 @@ public abstract class GameActivity extends AppCompatActivity {
     final static public String PAUSE_FRAGMENT_TAG = "Pause";
     protected int width;
     protected int height;
+    protected DiscreteSeekBar discreteSeekBar;
+    protected TextView description;
+    protected View dummyView;
 
     class ImageAdapter extends BaseAdapter{
 
@@ -89,6 +95,8 @@ public abstract class GameActivity extends AppCompatActivity {
 
         cards = findViewById(R.id.cards_view);
 
+        cards.setLongClickable(true);
+
 
         pause = findViewById(R.id.pause);
         pause.setOnClickListener(new View.OnClickListener() {
@@ -104,6 +112,12 @@ public abstract class GameActivity extends AppCompatActivity {
         endTurnButton = findViewById(R.id.end_turn);
 
         gameBar = findViewById(R.id.game_bar);
+
+        discreteSeekBar = findViewById(R.id.guess_seekbar);
+
+        description = findViewById(R.id.seekbar_description);
+
+        dummyView = findViewById(R.id.dummy_view);
 
         setView();
 
