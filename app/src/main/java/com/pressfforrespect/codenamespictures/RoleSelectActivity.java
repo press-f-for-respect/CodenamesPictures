@@ -44,7 +44,7 @@ public class RoleSelectActivity extends AppCompatActivity {
 
     private void selectSpyMaster(){
         clicked = true;
-        Intent myIntent = new Intent(this, WifiActivity.class);
+        Intent myIntent = new Intent(this, SpyMasterActivity.class);
         startActivity(myIntent);
 
     }

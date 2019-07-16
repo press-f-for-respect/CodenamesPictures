@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.GridView;
 import android.widget.ImageView;
 
 import androidx.cardview.widget.CardView;
@@ -36,6 +37,7 @@ public class SpyMasterActivity extends GameActivity{
             if(view == null){
                 View gridView = inflater.inflate(R.layout.card_layout, null);
                 card = gridView.findViewById(R.id.card_element);
+                card.setLayoutParams(new GridView.LayoutParams(height/6,height/6));
 
                 switch (board.getTeam()[i]){
                     case RED:
