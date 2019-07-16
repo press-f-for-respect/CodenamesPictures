@@ -71,6 +71,7 @@ public class SpyMasterActivity extends GameActivity{
         board = new Board();
         super.changeColor(board.getStarter());
 
+
         CardAdapter cardAdapter = new CardAdapter(this);
         for(int i = 0; i < 20; i++){
             cardAdapter.boardCards[i] = cardAdapter.cardId[board.getPicNums().get(i)];
@@ -114,4 +115,5 @@ public class SpyMasterActivity extends GameActivity{
     void endGame() {
 
     }
+
 }

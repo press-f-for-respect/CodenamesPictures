@@ -57,6 +57,8 @@ public class FieldOperatorActivity extends GameActivity {
         board = new Board();
         super.changeColor(board.getStarter());
 
+        cards.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+
         FieldOperatorActivity.CardAdapter cardAdapter = new FieldOperatorActivity.CardAdapter(this);
         for(int i = 0; i < 20; i++){
             cardAdapter.boardCards[i] = cardAdapter.cardId[board.getPicNums().get(i)];

@@ -5,406 +5,49 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".GameActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/pause"
+                style="@style/Widget.MaterialComponents.Button.Icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/pause_vec" />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/pause"
-        style="@style/Widget.MaterialComponents.Button.Icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:icon="@drawable/pause_vec"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/end_turn"
+                style="@style/Widget.MaterialComponents.Button.Icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/end_turn"
+                android:stateListAnimator="@null"/>
+        </LinearLayout>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/end_turn"
-        style="@style/Widget.MaterialComponents.Button.Icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="@string/end_turn"
-        android:stateListAnimator="@null"/>
-
-
-    <GridView
-        android:id="@+id/cards_view"
-        android:layout_width="800dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="150dp"
-        android:layout_marginTop="100dp"
-        android:numColumns="5"
-        android:verticalSpacing="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        <GridView
+            android:id="@+id/cards_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:numColumns="5"
+            />
+    </LinearLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/pause_container"/>
 
-    <!--<LinearLayout-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginStart="40dp"-->
-        <!--android:layout_marginTop="32dp"-->
-        <!--android:layout_marginEnd="32dp"-->
-        <!--android:layout_marginBottom="32dp"-->
-        <!--android:orientation="vertical"-->
-        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toTopOf="parent">-->
 
-        <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:orientation="horizontal">-->
 
-            <!--<com.google.android.material.card.MaterialCardView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginLeft="@dimen/mtrl_card_spacing"-->
-                <!--android:layout_marginTop="@dimen/mtrl_card_spacing"-->
-                <!--android:layout_marginRight="@dimen/mtrl_card_spacing"-->
-                <!--android:minWidth="80dp"-->
-                <!--android:minHeight="80dp">-->
-
-                <!--<ImageView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:id="@+id/card_1"/>-->
-
-            <!--</com.google.android.material.card.MaterialCardView>-->
-
-            <!--<com.google.android.material.card.MaterialCardView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginLeft="@dimen/mtrl_card_spacing"-->
-                <!--android:layout_marginTop="@dimen/mtrl_card_spacing"-->
-                <!--android:layout_marginRight="@dimen/mtrl_card_spacing"-->
-                <!--android:minWidth="80dp"-->
-                <!--android:minHeight="80dp">-->
-
-                <!--<ImageView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:id="@+id/card_2"/>-->
-
-            <!--</com.google.android.material.card.MaterialCardView>-->
-
-            <!--<com.google.android.material.card.MaterialCardView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginLeft="@dimen/mtrl_card_spacing"-->
-                <!--android:layout_marginTop="@dimen/mtrl_card_spacing"-->
-                <!--android:layout_marginRight="@dimen/mtrl_card_spacing"-->
-                <!--android:minWidth="80dp"-->
-                <!--android:minHeight="80dp">-->
-
-                <!--<ImageView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:id="@+id/card_3"/>-->
-
-            <!--</com.google.android.material.card.MaterialCardView>-->
-
-            <!--<com.google.android.material.card.MaterialCardView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginLeft="@dimen/mtrl_card_spacing"-->
-                <!--android:layout_marginTop="@dimen/mtrl_card_spacing"-->
-                <!--android:layout_marginRight="@dimen/mtrl_card_spacing"-->
-                <!--android:minWidth="80dp"-->
-                <!--android:minHeight="80dp">-->
-
-                <!--<ImageView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:id="@+id/card_4"/>-->
-
-            <!--</com.google.android.material.card.MaterialCardView>-->
-
-            <!--<com.google.android.material.card.MaterialCardView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginLeft="@dimen/mtrl_card_spacing"-->
-                <!--android:layout_marginTop="@dimen/mtrl_card_spacing"-->
-                <!--android:layout_marginRight="@dimen/mtrl_card_spacing"-->
-                <!--android:minWidth="80dp"-->
-                <!--android:minHeight="80dp">-->
-
-                <!--<ImageView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:id="@+id/card_5"/>-->
-
-            <!--</com.google.android.material.card.MaterialCardView>-->
-        <!--</LinearLayout>-->
-
-        <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:orientation="horizontal">-->
-
-            <!--<com.google.android.material.card.MaterialCardView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginLeft="@dimen/mtrl_card_spacing"-->
-                <!--android:layout_marginTop="@dimen/mtrl_card_spacing"-->
-                <!--android:layout_marginRight="@dimen/mtrl_card_spacing"-->
-                <!--android:minWidth="80dp"-->
-                <!--android:minHeight="80dp">-->
-
-                <!--<ImageView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:id="@+id/card_6"/>-->
-
-            <!--</com.google.android.material.card.MaterialCardView>-->
-
-            <!--<com.google.android.material.card.MaterialCardView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginLeft="@dimen/mtrl_card_spacing"-->
-                <!--android:layout_marginTop="@dimen/mtrl_card_spacing"-->
-                <!--android:layout_marginRight="@dimen/mtrl_card_spacing"-->
-                <!--android:minWidth="80dp"-->
-                <!--android:minHeight="80dp">-->
-
-                <!--<ImageView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:id="@+id/card_7"/>-->
-
-            <!--</com.google.android.material.card.MaterialCardView>-->
-
-            <!--<com.google.android.material.card.MaterialCardView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginLeft="@dimen/mtrl_card_spacing"-->
-                <!--android:layout_marginTop="@dimen/mtrl_card_spacing"-->
-                <!--android:layout_marginRight="@dimen/mtrl_card_spacing"-->
-                <!--android:minWidth="80dp"-->
-                <!--android:minHeight="80dp">-->
-
-                <!--<ImageView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:id="@+id/card_8"/>-->
-
-            <!--</com.google.android.material.card.MaterialCardView>-->
-
-            <!--<com.google.android.material.card.MaterialCardView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginLeft="@dimen/mtrl_card_spacing"-->
-                <!--android:layout_marginTop="@dimen/mtrl_card_spacing"-->
-                <!--android:layout_marginRight="@dimen/mtrl_card_spacing"-->
-                <!--android:minWidth="80dp"-->
-                <!--android:minHeight="80dp">-->
-
-                <!--<ImageView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:id="@+id/card_9"/>-->
-
-            <!--</com.google.android.material.card.MaterialCardView>-->
-
-            <!--<com.google.android.material.card.MaterialCardView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginLeft="@dimen/mtrl_card_spacing"-->
-                <!--android:layout_marginTop="@dimen/mtrl_card_spacing"-->
-                <!--android:layout_marginRight="@dimen/mtrl_card_spacing"-->
-                <!--android:minWidth="80dp"-->
-                <!--android:minHeight="80dp">-->
-
-                <!--<ImageView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:id="@+id/card_10"/>-->
-
-            <!--</com.google.android.material.card.MaterialCardView>-->
-        <!--</LinearLayout>-->
-
-        <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:orientation="horizontal">-->
-
-            <!--<com.google.android.material.card.MaterialCardView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginLeft="@dimen/mtrl_card_spacing"-->
-                <!--android:layout_marginTop="@dimen/mtrl_card_spacing"-->
-                <!--android:layout_marginRight="@dimen/mtrl_card_spacing"-->
-                <!--android:minWidth="80dp"-->
-                <!--android:minHeight="80dp">-->
-
-                <!--<ImageView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:id="@+id/card_11"/>-->
-
-            <!--</com.google.android.material.card.MaterialCardView>-->
-
-            <!--<com.google.android.material.card.MaterialCardView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginLeft="@dimen/mtrl_card_spacing"-->
-                <!--android:layout_marginTop="@dimen/mtrl_card_spacing"-->
-                <!--android:layout_marginRight="@dimen/mtrl_card_spacing"-->
-                <!--android:minWidth="80dp"-->
-                <!--android:minHeight="80dp">-->
-
-                <!--<ImageView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:id="@+id/card_12"/>-->
-
-            <!--</com.google.android.material.card.MaterialCardView>-->
-
-            <!--<com.google.android.material.card.MaterialCardView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginLeft="@dimen/mtrl_card_spacing"-->
-                <!--android:layout_marginTop="@dimen/mtrl_card_spacing"-->
-                <!--android:layout_marginRight="@dimen/mtrl_card_spacing"-->
-                <!--android:minWidth="80dp"-->
-                <!--android:minHeight="80dp">-->
-
-                <!--<ImageView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:id="@+id/card_13"/>-->
-
-            <!--</com.google.android.material.card.MaterialCardView>-->
-
-            <!--<com.google.android.material.card.MaterialCardView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginLeft="@dimen/mtrl_card_spacing"-->
-                <!--android:layout_marginTop="@dimen/mtrl_card_spacing"-->
-                <!--android:layout_marginRight="@dimen/mtrl_card_spacing"-->
-                <!--android:minWidth="80dp"-->
-                <!--android:minHeight="80dp">-->
-
-                <!--<ImageView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:id="@+id/card_14"/>-->
-
-            <!--</com.google.android.material.card.MaterialCardView>-->
-
-            <!--<com.google.android.material.card.MaterialCardView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginLeft="@dimen/mtrl_card_spacing"-->
-                <!--android:layout_marginTop="@dimen/mtrl_card_spacing"-->
-                <!--android:layout_marginRight="@dimen/mtrl_card_spacing"-->
-                <!--android:minWidth="80dp"-->
-                <!--android:minHeight="80dp">-->
-
-                <!--<ImageView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:id="@+id/card_15"/>-->
-
-            <!--</com.google.android.material.card.MaterialCardView>-->
-        <!--</LinearLayout>-->
-
-        <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:orientation="horizontal">-->
-
-            <!--<com.google.android.material.card.MaterialCardView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginLeft="@dimen/mtrl_card_spacing"-->
-                <!--android:layout_marginTop="@dimen/mtrl_card_spacing"-->
-                <!--android:layout_marginRight="@dimen/mtrl_card_spacing"-->
-                <!--android:minWidth="80dp"-->
-                <!--android:minHeight="80dp">-->
-
-                <!--<ImageView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:id="@+id/card_16"/>-->
-
-            <!--</com.google.android.material.card.MaterialCardView>-->
-
-            <!--<com.google.android.material.card.MaterialCardView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginLeft="@dimen/mtrl_card_spacing"-->
-                <!--android:layout_marginTop="@dimen/mtrl_card_spacing"-->
-                <!--android:layout_marginRight="@dimen/mtrl_card_spacing"-->
-                <!--android:minWidth="80dp"-->
-                <!--android:minHeight="80dp">-->
-
-                <!--<ImageView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:id="@+id/card_17"/>-->
-
-            <!--</com.google.android.material.card.MaterialCardView>-->
-
-            <!--<com.google.android.material.card.MaterialCardView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginLeft="@dimen/mtrl_card_spacing"-->
-                <!--android:layout_marginTop="@dimen/mtrl_card_spacing"-->
-                <!--android:layout_marginRight="@dimen/mtrl_card_spacing"-->
-                <!--android:minWidth="80dp"-->
-                <!--android:minHeight="80dp">-->
-
-                <!--<ImageView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:id="@+id/card_18"/>-->
-
-            <!--</com.google.android.material.card.MaterialCardView>-->
-
-            <!--<com.google.android.material.card.MaterialCardView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginLeft="@dimen/mtrl_card_spacing"-->
-                <!--android:layout_marginTop="@dimen/mtrl_card_spacing"-->
-                <!--android:layout_marginRight="@dimen/mtrl_card_spacing"-->
-                <!--android:minWidth="80dp"-->
-                <!--android:minHeight="80dp">-->
-
-                <!--<ImageView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:id="@+id/card_19"/>-->
-
-            <!--</com.google.android.material.card.MaterialCardView>-->
-
-            <!--<com.google.android.material.card.MaterialCardView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginLeft="@dimen/mtrl_card_spacing"-->
-                <!--android:layout_marginTop="@dimen/mtrl_card_spacing"-->
-                <!--android:layout_marginRight="@dimen/mtrl_card_spacing"-->
-                <!--android:minWidth="80dp"-->
-                <!--android:minHeight="80dp">-->
-
-                <!--<ImageView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:id="@+id/card_20"/>-->
-
-            <!--</com.google.android.material.card.MaterialCardView>-->
-        <!--</LinearLayout>-->
-
-
-    <!--</LinearLayout>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

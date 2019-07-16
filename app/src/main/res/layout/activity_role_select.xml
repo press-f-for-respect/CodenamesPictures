@@ -1,39 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RoleSelectActivity"
-    android:background="@color/colorPrimary"
-    android:orientation="horizontal"
-    android:weightSum="100">
+    android:backgroundTint="@color/colorPrimary"
+    android:orientation="horizontal">
 
-
-    <ImageButton
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="50"
-        android:src="@drawable/duo"
-        android:id="@+id/field_op"
-        android:scaleType="centerCrop"
-        android:padding="0dp"
-        android:background="?attr/selectableItemBackgroundBorderless"/>
+        android:orientation="horizontal"
+        android:weightSum="100"
+        android:background="@color/colorPrimary">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="50"
+            android:background="@color/colorPrimary">
+            <ImageView
+                android:background="@color/colorPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/duo"
+                android:layout_margin="3dp"
+                android:scaleType="centerCrop"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/round_frame" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="50"
+            android:background="@color/colorPrimary">
+            <ImageView
+                android:background="@color/colorAccent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/spy"
+                android:scaleType="centerCrop"
+                android:layout_margin="3dp" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/round_frame" />
+        </FrameLayout>
+
+    </LinearLayout>
 
 
-
-    <ImageButton
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="50"
-        android:src="@drawable/spy"
-        android:id="@+id/spymaster"
-        android:scaleType="centerCrop"
-        android:padding="0dp"
-        android:background="?attr/selectableItemBackgroundBorderless"/>
+        android:orientation="horizontal"
+        android:weightSum="100"
+        android:backgroundTint="@color/colorPrimary">
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="50"
+            android:text="@string/f_op"
+            android:id="@+id/field_op"
+            android:backgroundTint="@color/Transparent"
+            android:textStyle="bold" />
+
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="50"
+            android:text="@string/spymaster"
+            android:id="@+id/spymaster_butt"
+            android:backgroundTint="@color/Transparent"
+            android:textStyle="bold"
+            android:textColor="@color/colorBlack"
+            />
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/big_frame"/>
 
 
 
 
 
-</LinearLayout>
+
+</FrameLayout>
