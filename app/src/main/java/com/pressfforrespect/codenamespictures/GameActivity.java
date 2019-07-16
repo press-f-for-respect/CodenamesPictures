@@ -1,7 +1,6 @@
 package com.pressfforrespect.codenamespictures;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -11,17 +10,14 @@ import android.os.Bundle;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.LinearLayout;
 
 import com.pressfforrespect.codenamespictures.game.Team;
 
-import java.util.ArrayList;
 
 public abstract class GameActivity extends AppCompatActivity {
 
@@ -29,6 +25,7 @@ public abstract class GameActivity extends AppCompatActivity {
     protected Button endTurnButton;
     protected GridView cards;
     protected FrameLayout pauseLayout;
+    protected LinearLayout gameBar;
     protected Boolean isPaused = false;
     final static public String PAUSE_FRAGMENT_TAG = "Pause";
     protected int width;
@@ -60,11 +57,6 @@ public abstract class GameActivity extends AppCompatActivity {
 
         ImageAdapter(Context context){
             this.context = context;
-            Display display = getWindowManager().getDefaultDisplay();
-            Point size = new Point();
-            display.getSize(size);
-            width = size.x;
-            height = size.y;
         }
 
         @Override
@@ -97,6 +89,7 @@ public abstract class GameActivity extends AppCompatActivity {
 
         cards = findViewById(R.id.cards_view);
 
+
         pause = findViewById(R.id.pause);
         pause.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,6 +102,10 @@ public abstract class GameActivity extends AppCompatActivity {
         pauseLayout.setVisibility(View.GONE);
 
         endTurnButton = findViewById(R.id.end_turn);
+
+        gameBar = findViewById(R.id.game_bar);
+
+        setView();
 
 //        BackgroundMusic.getInstance().stop();
         //TODO change game music
@@ -156,5 +153,23 @@ public abstract class GameActivity extends AppCompatActivity {
         super.onResume();
         if(BackgroundMusic.getInstance() != null)
             BackgroundMusic.getInstance().play();
+    }
+
+    void setView(){
+
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        width = size.x;
+        height = size.y;
+
+        LinearLayout.LayoutParams gridLayout = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        gridLayout.setMargins(width/10,height/40,width/10,height/40);
+        cards.setLayoutParams(gridLayout);
+        cards.setVerticalSpacing(height/25);
+
+        LinearLayout.LayoutParams barLayout = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        barLayout.setMargins(width/10,height/60,width/10,0);
+        gameBar.setLayoutParams(barLayout);
     }
 }

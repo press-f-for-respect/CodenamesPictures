@@ -37,7 +37,7 @@ public class SpyMasterActivity extends GameActivity{
             if(view == null){
                 View gridView = inflater.inflate(R.layout.card_layout, null);
                 card = gridView.findViewById(R.id.card_element);
-                card.setLayoutParams(new GridView.LayoutParams(height/6,height/6));
+                card.setLayoutParams(new GridView.LayoutParams(width/8,width/8));
 
                 switch (board.getTeam()[i]){
                     case RED:
