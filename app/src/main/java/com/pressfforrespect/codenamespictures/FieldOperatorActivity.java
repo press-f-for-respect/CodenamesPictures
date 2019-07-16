@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
+import android.widget.GridView;
 import android.widget.ImageView;
 
 import com.pressfforrespect.codenamespictures.game.Board;
@@ -42,6 +43,7 @@ public class FieldOperatorActivity extends GameActivity {
             if(view == null){
                 View gridView = inflater.inflate(R.layout.card_layout, null);
                 card = gridView.findViewById(R.id.card_element);
+                card.setLayoutParams(new GridView.LayoutParams(width/8,width/8));
 
             }else{
                 card = (CardView) view;
@@ -59,7 +61,6 @@ public class FieldOperatorActivity extends GameActivity {
         board = new Board();
         super.changeColor(board.getStarter());
 
-        cards.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
 
         FieldOperatorActivity.CardAdapter cardAdapter = new FieldOperatorActivity.CardAdapter(this);
         for(int i = 0; i < 20; i++){
