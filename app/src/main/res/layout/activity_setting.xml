@@ -6,11 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".SettingActivity">
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/second_bg" />
+    </FrameLayout>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:gravity="center"
+        android:textStyle="bold"
+        android:textAllCaps="true"
+        android:textColor="@color/colorBlack"
         android:text="@string/setting"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,7 +53,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/input_device_name"/>
+                android:id="@+id/input_device_name" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -47,17 +61,22 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/sound_check"
             android:text="@string/sound"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:useMaterialThemeColors="false"/>
+            app:useMaterialThemeColors="true"
+            android:gravity="center"
+            android:textColor="@color/colorWhite"/>
 
         <CheckBox xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/music_check"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/music"
-            app:useMaterialThemeColors="false" />
+            app:useMaterialThemeColors="true"
+            android:gravity="center"
+            android:textColor="@color/colorWhite"
+            />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
