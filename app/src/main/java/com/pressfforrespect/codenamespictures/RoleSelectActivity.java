@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -22,6 +23,7 @@ public class RoleSelectActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_role_select);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         spyMaster = findViewById(R.id.spymaster_butt);
         spyMaster.setOnClickListener(new View.OnClickListener() {
@@ -42,7 +44,7 @@ public class RoleSelectActivity extends AppCompatActivity {
 
     private void selectSpyMaster(){
         clicked = true;
-        Intent myIntent = new Intent(this, SpyMasterActivity.class);
+        Intent myIntent = new Intent(this, WifiActivity.class);
         startActivity(myIntent);
 
     }
@@ -66,9 +68,9 @@ public class RoleSelectActivity extends AppCompatActivity {
         clicked = false;
         if(BackgroundMusic.getInstance() != null)
             BackgroundMusic.getInstance().play();
-        else
+//        else
             //TODO change music
-            BackgroundMusic.getInstance(this, R.raw.ykc).play();
+//            BackgroundMusic.getInstance(this, R.raw.ykc).play();
     }
 
     @Override
