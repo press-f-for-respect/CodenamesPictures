@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
                 selectSetting();
             }
         });
+        setting.setSoundEffectsEnabled(true);
 
         Button quit = findViewById(R.id.quit);
         quit.setOnClickListener(new View.OnClickListener() {
@@ -55,6 +56,9 @@ public class MainActivity extends AppCompatActivity {
                 System.exit(0);
             }
         });
+
+        BackgroundMusic.getInstance(this, R.raw.ykc);
+        BackgroundMusic.setDoPlay(getSharedPreferences(SettingActivity.KEY, Context.MODE_PRIVATE).getBoolean(String.valueOf(R.id.music_check), false));
     }
 
     @Override
@@ -62,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         clicked = false;
         //TODO change menu music
-        BackgroundMusic.getInstance(this, R.raw.ykc).play();
+        BackgroundMusic.getInstance().play();
     }
 
     @Override
