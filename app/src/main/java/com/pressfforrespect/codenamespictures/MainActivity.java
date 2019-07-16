@@ -1,8 +1,9 @@
 package com.pressfforrespect.codenamespictures;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -46,15 +47,18 @@ public class MainActivity extends AppCompatActivity {
                 selectSetting();
             }
         });
+        setting.setSoundEffectsEnabled(true);
 
         Button quit = findViewById(R.id.quit);
         quit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
-                System.exit(0);
+                alert();
             }
         });
+
+        BackgroundMusic.getInstance(this, R.raw.ykc);
+        BackgroundMusic.setDoPlay(getSharedPreferences(SettingActivity.KEY, Context.MODE_PRIVATE).getBoolean(String.valueOf(R.id.music_check), false));
     }
 
     @Override
@@ -62,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         clicked = false;
         //TODO change menu music
-//        BackgroundMusic.getInstance(this, R.raw.ykc).play();
+        BackgroundMusic.getInstance().play();
     }
 
     @Override
@@ -86,5 +90,25 @@ public class MainActivity extends AppCompatActivity {
         clicked = true;
         Intent myIntent = new Intent(this, SettingActivity.class);
         startActivity(myIntent);
+    }
+
+    private void alert() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Are you sure you want to quit?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                        System.exit(0);
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                })
+                .setCancelable(true);
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }

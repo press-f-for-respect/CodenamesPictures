@@ -8,11 +8,15 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+
+import com.google.android.material.button.MaterialButton;
 
 public class RoleSelectActivity extends AppCompatActivity {
 
-    private Button spyMaster;
-    private Button fieldOperator;
+
+    private MaterialButton spyMaster;
+    private MaterialButton fieldOperator;
     private boolean clicked;
 
     @Override

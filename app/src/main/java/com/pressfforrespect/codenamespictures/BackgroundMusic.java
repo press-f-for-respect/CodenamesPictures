@@ -7,7 +7,7 @@ public class BackgroundMusic {
 
     private static BackgroundMusic player;
     private MediaPlayer media;
-    private static boolean doPlay;
+    private static boolean doPlay = true;
 
     private BackgroundMusic(Context context, int music){
         media = MediaPlayer.create(context, music);

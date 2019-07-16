@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.LayoutInflater;
@@ -23,6 +24,7 @@ public class FieldOperatorActivity extends GameActivity {
     private Board board;
     private CountDownTimer timer;
     private long timeUntilFinished;
+    private boolean[] clicked = new boolean[20];
 
     class CardAdapter extends GameActivity.ImageAdapter {
 
@@ -57,10 +59,14 @@ public class FieldOperatorActivity extends GameActivity {
         board = new Board();
         super.changeColor(board.getStarter());
 
+        cards.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+
         FieldOperatorActivity.CardAdapter cardAdapter = new FieldOperatorActivity.CardAdapter(this);
         for(int i = 0; i < 20; i++){
             cardAdapter.boardCards[i] = cardAdapter.cardId[board.getPicNums().get(i)];
         }
+
+        final boolean playSound = getSharedPreferences(SettingActivity.KEY, Context.MODE_PRIVATE).getBoolean(String.valueOf(R.id.sound_check), false);
 
         cards.setAdapter(cardAdapter);
         cards.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -68,7 +74,17 @@ public class FieldOperatorActivity extends GameActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                cardClicked((CardView) view, i);
+                if(!clicked[i]) {
+                    cardClicked((CardView) view, i);
+                    if (playSound) {
+                        //TODO change sound
+                        MediaPlayer sound = MediaPlayer.create(FieldOperatorActivity.this, R.raw.fart);
+                        sound.setLooping(false);
+                        sound.setVolume(100, 100);
+                        sound.start();
+                    }
+                    clicked[i] = true;
+                }
 
             }
         });
@@ -100,7 +116,6 @@ public class FieldOperatorActivity extends GameActivity {
             }
         };
         timer.start();
-
 
     }
 

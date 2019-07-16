@@ -63,12 +63,14 @@ public class SpyMasterActivity extends GameActivity{
         }
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         board = new Board();
         super.changeColor(board.getStarter());
+
 
         CardAdapter cardAdapter = new CardAdapter(this);
         for(int i = 0; i < 20; i++){
@@ -113,4 +115,5 @@ public class SpyMasterActivity extends GameActivity{
     void endGame() {
 
     }
+
 }
