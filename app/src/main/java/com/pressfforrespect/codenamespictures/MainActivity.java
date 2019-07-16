@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         clicked = false;
         //TODO change menu music
-        BackgroundMusic.getInstance(this, R.raw.ykc).play();
+//        BackgroundMusic.getInstance(this, R.raw.ykc).play();
     }
 
     @Override

@@ -101,9 +101,9 @@ public abstract class GameActivity extends AppCompatActivity {
 
         endTurnButton = findViewById(R.id.end_turn);
 
-        BackgroundMusic.getInstance().stop();
+//        BackgroundMusic.getInstance().stop();
         //TODO change game music
-        BackgroundMusic.getInstance(this, R.raw.ykc).play();
+//        BackgroundMusic.getInstance(this, R.raw.ykc).play();
 
     }
 
@@ -126,7 +126,7 @@ public abstract class GameActivity extends AppCompatActivity {
     abstract void endGame();
 
     protected void finishGame(){
-        BackgroundMusic.getInstance().stop();
+//        BackgroundMusic.getInstance().stop();
         finish();
     }
 
