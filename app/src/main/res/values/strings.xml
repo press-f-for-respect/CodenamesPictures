@@ -12,4 +12,6 @@
     <string name="f_op">Field Operatives</string>
     <string name="spymaster">Spy Masters</string>
     <string name="main_menu">Main Menu</string>
+    <string name="enable_wifi">Enable Wifi</string>
+    <string name="discover">Discover</string>
 </resources>
