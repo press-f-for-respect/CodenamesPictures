@@ -25,7 +25,7 @@ import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 public abstract class GameActivity extends AppCompatActivity {
 
     protected Button pause;
-    protected Button endTurnButton;
+    protected Button sideButton;
     protected GridView cards;
     protected FrameLayout pauseLayout;
     protected LinearLayout gameBar;
@@ -109,7 +109,7 @@ public abstract class GameActivity extends AppCompatActivity {
         pauseLayout = findViewById(R.id.pause_container);
         pauseLayout.setVisibility(View.GONE);
 
-        endTurnButton = findViewById(R.id.end_turn);
+        sideButton = findViewById(R.id.end_turn);
 
         gameBar = findViewById(R.id.game_bar);
 
@@ -121,9 +121,9 @@ public abstract class GameActivity extends AppCompatActivity {
 
         setView();
 
-//        BackgroundMusic.getInstance().stop();
+        BackgroundMusic.getInstance().stop();
         //TODO change game music
-//        BackgroundMusic.getInstance(this, R.raw.ykc).play();
+        BackgroundMusic.getInstance(this, R.raw.ykc).play();
 
     }
 
@@ -178,12 +178,12 @@ public abstract class GameActivity extends AppCompatActivity {
         height = size.y;
 
         LinearLayout.LayoutParams gridLayout = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        gridLayout.setMargins(width/10,height/40,width/10,height/40);
+        gridLayout.setMargins(width/5,height/40,width/5,height/40);
         cards.setLayoutParams(gridLayout);
         cards.setVerticalSpacing(height/25);
 
         LinearLayout.LayoutParams barLayout = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        barLayout.setMargins(width/10,height/60,width/10,0);
+        barLayout.setMargins(width/60,height/60,width/60,0);
         gameBar.setLayoutParams(barLayout);
     }
 }

@@ -44,7 +44,7 @@ public class FieldOperatorActivity extends GameActivity {
             if(view == null){
                 View gridView = inflater.inflate(R.layout.card_layout, null);
                 card = gridView.findViewById(R.id.card_element);
-                card.setLayoutParams(new GridView.LayoutParams(width/8,width/8));
+                card.setLayoutParams(new GridView.LayoutParams(width/11,width/11));
 
             }else{
                 card = (CardView) view;
@@ -91,6 +91,8 @@ public class FieldOperatorActivity extends GameActivity {
             }
         });
 
+        sideButton.setText(R.string.end_turn);
+
 //        cards.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
 //
 //            @Override
@@ -107,7 +109,7 @@ public class FieldOperatorActivity extends GameActivity {
             }
         });
 
-        endTurnButton.setOnClickListener(new View.OnClickListener() {
+        sideButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 endTurn();
@@ -141,10 +143,14 @@ public class FieldOperatorActivity extends GameActivity {
             transaction.addToBackStack(null);
             transaction.commit();
             pauseLayout.setVisibility(View.VISIBLE);
+            cards.setVisibility(View.GONE);
+            sideButton.setVisibility(View.GONE);
             timer.cancel();
         }else{
             transaction.remove(getSupportFragmentManager().findFragmentByTag(PAUSE_FRAGMENT_TAG)).commit();
             pauseLayout.setVisibility(View.GONE);
+            cards.setVisibility(View.VISIBLE);
+            sideButton.setVisibility(View.VISIBLE);
 
             timer = new CountDownTimer(timeUntilFinished, 1000) {
 

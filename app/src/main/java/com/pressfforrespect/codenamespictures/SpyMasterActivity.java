@@ -10,15 +10,10 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.SeekBar;
-
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentTransaction;
-
 import com.pressfforrespect.codenamespictures.game.Board;
 
-import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
-import org.adw.library.widgets.discreteseekbar.internal.compat.SeekBarCompat;
 
 public class SpyMasterActivity extends GameActivity{
 
@@ -38,10 +33,11 @@ public class SpyMasterActivity extends GameActivity{
             CardView card;
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
+
             if(view == null){
                 View gridView = inflater.inflate(R.layout.card_layout, null);
                 card = gridView.findViewById(R.id.card_element);
-                card.setLayoutParams(new GridView.LayoutParams(width/8,width/8));
+                card.setLayoutParams(new GridView.LayoutParams(width/11,width/11));
 
                 switch (board.getTeam()[i]){
                     case RED:
@@ -91,12 +87,11 @@ public class SpyMasterActivity extends GameActivity{
             }
         });
 
-        endTurnButton.setText(R.string.spymaster_turn);
+        sideButton.setText(R.string.spymaster_turn);
 
-        endTurnButton.setOnClickListener(new View.OnClickListener() {
+        sideButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                endTurn();
             }
         });
 
@@ -113,9 +108,17 @@ public class SpyMasterActivity extends GameActivity{
             transaction.addToBackStack(null);
             transaction.commit();
             pauseLayout.setVisibility(View.VISIBLE);
+            cards.setVisibility(View.GONE);
+            sideButton.setVisibility(View.GONE);
+            description.setVisibility(View.GONE);
+            discreteSeekBar.setVisibility(View.GONE);
         }else{
             transaction.remove(getSupportFragmentManager().findFragmentByTag(PAUSE_FRAGMENT_TAG)).commit();
             pauseLayout.setVisibility(View.GONE);
+            cards.setVisibility(View.VISIBLE);
+            sideButton.setVisibility(View.VISIBLE);
+            description.setVisibility(View.VISIBLE);
+            discreteSeekBar.setVisibility(View.VISIBLE);
         }
         isPaused = !isPaused;
     }
