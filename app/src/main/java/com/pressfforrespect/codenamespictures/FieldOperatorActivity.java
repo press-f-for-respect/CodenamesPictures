@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -49,7 +50,27 @@ public class FieldOperatorActivity extends GameActivity {
             }else{
                 card = (CardView) view;
             }
-            ((ImageView)((FrameLayout) card.getChildAt(0)).getChildAt(0)).setImageResource(boardCards[i]);
+            if(!clicked[i]) {
+                ((ImageView)((FrameLayout) card.getChildAt(0)).getChildAt(0)).setImageResource(boardCards[i]);
+            } else {
+                switch (board.getTeam()[i]) {
+                    case RED:
+                        ((ImageView)((FrameLayout) card.getChildAt(0)).getChildAt(0)).setImageResource(R.drawable.red_team);
+                        break;
+                    case BLUE:
+                        ((ImageView)((FrameLayout) card.getChildAt(0)).getChildAt(0)).setImageResource(R.drawable.blue_team);
+                        break;
+                    case BYSTANDER:
+                        ((ImageView)((FrameLayout) card.getChildAt(0)).getChildAt(0)).setImageResource(R.drawable.bystander);
+                        break;
+                    case ASSASSIN:
+                        ((ImageView)((FrameLayout) card.getChildAt(0)).getChildAt(0)).setImageResource(R.drawable.assasin);
+                        break;
+                    default:
+                        ((ImageView)((FrameLayout) card.getChildAt(0)).getChildAt(0)).setImageResource(R.drawable.bystander);
+                        break;
+                }
+            }
 
             return card;
         }
@@ -200,25 +221,9 @@ public class FieldOperatorActivity extends GameActivity {
 
         Team cardTeam =  board.getTeam()[i];
 
-        int color;
-        switch (cardTeam){
-            case RED:
-                color = Color.parseColor(getResources().getString(R.color.colorRed));
-                break;
-            case BLUE:
-                color = Color.parseColor(getResources().getString(R.color.colorBlue));
-                break;
-            case ASSASSIN:
-                color = Color.parseColor(getResources().getString(R.color.colorBlack));
-                break;
-            case BYSTANDER:
-                color = Color.parseColor(getResources().getString(R.color.colorCream));
-                break;
-            default:
-                color = Color.parseColor(getResources().getString(R.color.colorCream));
-        }
 
-        FlipAnimation flipAnimation = new FlipAnimation(card, color);
+
+        FlipAnimation flipAnimation = new FlipAnimation(card, cardTeam);
         card.startAnimation(flipAnimation);
 
         if(cardTeam == Team.ASSASSIN)

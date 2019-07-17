@@ -3,13 +3,21 @@ package com.pressfforrespect.codenamespictures.Animation;
 import android.graphics.Camera;
 import android.graphics.Matrix;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+
+import androidx.cardview.widget.CardView;
 
 import com.pressfforrespect.codenamespictures.R;
 import com.pressfforrespect.codenamespictures.game.Team;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class FlipAnimation extends Animation {
 
@@ -24,23 +32,38 @@ public class FlipAnimation extends Animation {
 
     private boolean forward = true;
 
-    private ColorDrawable colorDrawable;
+    private Drawable image;
+
 
     /**
      * Creates a 3D flip animation between two views.
      *
      * @param fromView First view in the transition.
-     * @param color   team color the transition.
+     * @param team   team color the transition.
      */
-    public FlipAnimation(View fromView, int color) {
+    public FlipAnimation(View fromView, Team team) {
         this.fromView = fromView;
 
         setDuration(500);
         setFillAfter(false);
         setInterpolator(new AccelerateDecelerateInterpolator());
 
-
-        colorDrawable = new ColorDrawable(color);
+        switch (team){
+            case RED:
+                image = fromView.getContext().getDrawable(R.drawable.red_team);
+                break;
+            case BLUE:
+                image = fromView.getContext().getDrawable(R.drawable.blue_team);
+                break;
+            case ASSASSIN:
+                image = fromView.getContext().getDrawable(R.drawable.assasin);
+                break;
+            case BYSTANDER:
+                image = fromView.getContext().getDrawable(R.drawable.bystander);
+                break;
+            default:
+                image = fromView.getContext().getDrawable(R.drawable.bystander);
+        }
 
     }
 
@@ -67,7 +90,8 @@ public class FlipAnimation extends Animation {
         if (interpolatedTime >= 0.5f) {
             degrees -= 180.f;
 
-            fromView.setForeground(colorDrawable);
+            ((ImageView) ((FrameLayout) ((CardView) fromView).getChildAt(0)).getChildAt(0)).setImageDrawable(image);
+
         }
 
         if (forward)
