@@ -106,7 +106,7 @@ public abstract class GameActivity extends AppCompatActivity {
             }
         });
 
-        pauseLayout = findViewById(R.id.pause_container);
+        pauseLayout = findViewById(R.id.container);
         pauseLayout.setVisibility(View.GONE);
 
         sideButton = findViewById(R.id.end_turn);

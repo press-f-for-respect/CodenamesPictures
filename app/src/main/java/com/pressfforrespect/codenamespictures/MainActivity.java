@@ -85,6 +85,8 @@ public class MainActivity extends AppCompatActivity {
 
     void selectHelp(){
         clicked = true;
+        Intent myIntent = new Intent(this, HelpActivity.class);
+        startActivity(myIntent);
     }
 
     void selectSetting(){

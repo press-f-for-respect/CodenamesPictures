@@ -104,7 +104,7 @@ public class SpyMasterActivity extends GameActivity{
     void gamePause() {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         if(!isPaused) {
-            transaction.add(R.id.pause_container, new PauseFragment(this), PAUSE_FRAGMENT_TAG);
+            transaction.add(R.id.container, new PauseFragment(this), PAUSE_FRAGMENT_TAG);
             transaction.addToBackStack(null);
             transaction.commit();
             pauseLayout.setVisibility(View.VISIBLE);

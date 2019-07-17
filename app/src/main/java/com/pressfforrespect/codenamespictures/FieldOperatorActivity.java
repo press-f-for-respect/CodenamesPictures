@@ -5,8 +5,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -160,7 +158,7 @@ public class FieldOperatorActivity extends GameActivity {
     void gamePause() {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         if(!isPaused) {
-            transaction.add(R.id.pause_container, new PauseFragment(this), PAUSE_FRAGMENT_TAG);
+            transaction.add(R.id.container, new PauseFragment(this), PAUSE_FRAGMENT_TAG);
             transaction.addToBackStack(null);
             transaction.commit();
             pauseLayout.setVisibility(View.VISIBLE);
