@@ -78,10 +78,10 @@ public class FieldOperatorActivity extends GameActivity {
                     cardClicked((CardView) view, i);
                     if (playSound) {
                         //TODO change sound
-                        MediaPlayer sound = MediaPlayer.create(FieldOperatorActivity.this, R.raw.fart);
-                        sound.setLooping(false);
-                        sound.setVolume(100, 100);
-                        sound.start();
+//                        MediaPlayer sound = MediaPlayer.create(FieldOperatorActivity.this, R.raw.fart);
+//                        sound.setLooping(false);
+//                        sound.setVolume(100, 100);
+//                        sound.start();
                     }
                     clicked[i] = true;
                 }

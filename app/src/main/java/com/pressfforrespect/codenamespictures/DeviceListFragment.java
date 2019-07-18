@@ -1,6 +1,7 @@
 package com.pressfforrespect.codenamespictures;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.net.wifi.p2p.WifiP2pDevice;
 import android.net.wifi.p2p.WifiP2pDeviceList;
@@ -9,6 +10,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,8 +22,8 @@ import java.util.List;
 
 public class DeviceListFragment extends ListFragment implements WifiP2pManager.PeerListListener {
 
-    private List<WifiP2pDevice> peers = new ArrayList<WifiP2pDevice>();
-    ProgressDialog progressDialog = null;
+    private List<WifiP2pDevice> peers = new ArrayList<>();
+    private ProgressDialog progressDialog = null;
     View mContentView = null;
     private WifiP2pDevice device;
 
@@ -28,12 +31,18 @@ public class DeviceListFragment extends ListFragment implements WifiP2pManager.P
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        this.setListAdapter(new WiFiPeerListAdapter(getActivity(), R.layout.row_devices, peers));
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+        mContentView = inflater.inflate(R.layout.device_list, null);
+        return mContentView;
+    }
+
+    public WifiP2pDevice getDevice() {
+        return device;
     }
 
     public void onInitiateDiscovery() {
@@ -51,6 +60,73 @@ public class DeviceListFragment extends ListFragment implements WifiP2pManager.P
 
     @Override
     public void onPeersAvailable(WifiP2pDeviceList wifiP2pDeviceList) {
-        System.out.println("HERE");
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.dismiss();
+        }
+        peers.clear();
+        peers.addAll(wifiP2pDeviceList.getDeviceList());
+        ((WiFiPeerListAdapter) getListAdapter()).notifyDataSetChanged();
+    }
+
+    public void clearPeers() {
+        peers.clear();
+        ((WiFiPeerListAdapter) getListAdapter()).notifyDataSetChanged();
+    }
+
+    private static String getDeviceStatus(int deviceStatus) {
+        //Log.d(MainActivity.TAG, "Peer status :" + deviceStatus);
+        switch (deviceStatus) {
+            case WifiP2pDevice.AVAILABLE:
+                return "Available";
+            case WifiP2pDevice.INVITED:
+                return "Invited";
+            case WifiP2pDevice.CONNECTED:
+                return "Connected";
+            case WifiP2pDevice.FAILED:
+                return "Failed";
+            case WifiP2pDevice.UNAVAILABLE:
+                return "Unavailable";
+            default:
+                return "Unknown";
+
+        }
+    }
+
+    private class WiFiPeerListAdapter extends ArrayAdapter<WifiP2pDevice> {
+
+        private List<WifiP2pDevice> items;
+
+
+        public WiFiPeerListAdapter(Context context, int textViewResourceId,
+                                   List<WifiP2pDevice> objects) {
+            super(context, textViewResourceId, objects);
+            items = objects;
+
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View v = convertView;
+            if (v == null) {
+                LayoutInflater vi = (LayoutInflater) getActivity().getSystemService(
+                        Context.LAYOUT_INFLATER_SERVICE);
+                v = vi.inflate(R.layout.row_devices, null);
+            }
+            WifiP2pDevice device = items.get(position);
+            if (device != null) {
+                TextView tvDeviceName = (TextView) v.findViewById(R.id.tv_deviceName);
+                TextView tvDeviceDetails = (TextView) v.findViewById(R.id.tv_deviceDetails);
+                if (tvDeviceName != null) {
+                    tvDeviceName.setText(device.deviceName);
+                }
+                if (tvDeviceDetails != null) {
+                    tvDeviceDetails.setText(getDeviceStatus(device.status));
+                }
+            }
+
+            return v;
+
+        }
     }
 }

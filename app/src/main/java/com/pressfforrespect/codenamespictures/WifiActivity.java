@@ -1,5 +1,6 @@
 package com.pressfforrespect.codenamespictures;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -8,9 +9,13 @@ import android.content.IntentFilter;
 import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+import androidx.appcompat.widget.Toolbar;
 
 import com.pressfforrespect.codenamespictures.network.WifiDirectBroadcastReceiver;
 
@@ -25,6 +30,8 @@ public class WifiActivity extends AppCompatActivity implements WifiP2pManager.Ch
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wifi);
+        Toolbar wifiToolbar = (Toolbar) findViewById(R.id.wifi_toolbar);
+        setSupportActionBar(wifiToolbar);
         wifiP2pManager = (WifiP2pManager) getSystemService(Context.WIFI_P2P_SERVICE);
         channel = wifiP2pManager.initialize(this, getMainLooper(), null);
         wifiDirectBroadcastReceiver = new WifiDirectBroadcastReceiver(wifiP2pManager, channel, this);
@@ -34,20 +41,6 @@ public class WifiActivity extends AppCompatActivity implements WifiP2pManager.Ch
         intentFilter.addAction(WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION);
         intentFilter.addAction(WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION);
 
-        Button enableWifiButton = findViewById(R.id.enable_wifi_button);
-        enableWifiButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                enableWifi();
-            }
-        });
-        final Button discoverButton = findViewById(R.id.discover_button);
-        discoverButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                discoverPeers();
-            }
-        });
 
 
     }
@@ -65,9 +58,8 @@ public class WifiActivity extends AppCompatActivity implements WifiP2pManager.Ch
     }
 
     private void discoverPeers() {
-        DeviceListFragment deviceListFragment = new DeviceListFragment();
-        getSupportFragmentManager().beginTransaction().replace(R.id.wifi_activity_container, deviceListFragment).commit();
-//        deviceListFragment.onInitiateDiscovery();
+        final DeviceListFragment deviceListFragment = (DeviceListFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_list);
+        deviceListFragment.onInitiateDiscovery();
         wifiP2pManager.discoverPeers(channel, new WifiP2pManager.ActionListener() {
             @Override
             public void onSuccess() {
@@ -92,5 +84,26 @@ public class WifiActivity extends AppCompatActivity implements WifiP2pManager.Ch
     @Override
     public void onChannelDisconnected() {
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.discover_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_directEnable :
+                enableWifi();
+                return true;
+            case R.id.action_directDiscover:
+                discoverPeers();
+                return true;
+            default:
+                    return super.onOptionsItemSelected(item);
+        }
     }
 }
