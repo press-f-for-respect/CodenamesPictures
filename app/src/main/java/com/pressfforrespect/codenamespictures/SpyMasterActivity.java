@@ -107,7 +107,8 @@ public class SpyMasterActivity extends GameActivity{
 
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                ((ImageView) previewLayout.getChildAt(0)).setImageResource(cardAdapter.boardCards[i]);
+                ((ImageView) previewLayout.getChildAt(0)).setImageResource(
+                        cardAdapter.boardCards[i]);
                 previewLayout.setVisibility(View.VISIBLE);
                 AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
                 anim.setDuration(200);
