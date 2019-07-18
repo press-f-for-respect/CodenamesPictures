@@ -10,4 +10,5 @@
     <color name="colorWhite">#FFFFFFFF</color>
     <color name="colorBlack">#FF000000</color>
     <color name="colorEndTurnButton">#906F6F6F</color>
+    <color name="colorTpBackground">#71000000</color>
 </resources>

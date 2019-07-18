@@ -13,6 +13,8 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.GridView;
@@ -84,7 +86,7 @@ public class FieldOperatorActivity extends GameActivity {
         changeColor(board.getStarter());
 
 
-        FieldOperatorActivity.CardAdapter cardAdapter = new FieldOperatorActivity.CardAdapter(this);
+        final FieldOperatorActivity.CardAdapter cardAdapter = new FieldOperatorActivity.CardAdapter(this);
         for(int i = 0; i < 20; i++){
             cardAdapter.boardCards[i] = cardAdapter.cardId[board.getPicNums().get(i)];
         }
@@ -114,6 +116,35 @@ public class FieldOperatorActivity extends GameActivity {
 
         sideButton.setText(R.string.end_turn);
 
+        cards.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if (!clicked[i]) {
+                    ((ImageView) previewLayout.getChildAt(0)).setImageResource(cardAdapter.cardId[board.getPicNums().get(i)]);
+                    previewLayout.setVisibility(View.VISIBLE);
+                    AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
+                    anim.setDuration(200);
+                    anim.setRepeatCount(0);
+                    anim.setRepeatMode(Animation.REVERSE);
+                    previewLayout.startAnimation(anim);
+                }
+
+                return true;
+            }
+        });
+
+        previewLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlphaAnimation anim = new AlphaAnimation(1.0f, 0.0f);
+                anim.setDuration(200);
+                anim.setRepeatCount(0);
+                anim.setRepeatMode(Animation.REVERSE);
+                previewLayout.startAnimation(anim);
+                previewLayout.setVisibility(View.GONE);
+            }
+        });
 
         pause.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -185,6 +216,7 @@ public class FieldOperatorActivity extends GameActivity {
     @Override
     void endTurn() {
         board.endTurn();
+        showToast(board.getStarter());
         changeColor(board.getStarter());
 
         timer.cancel();

@@ -8,6 +8,9 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -79,7 +82,7 @@ public class SpyMasterActivity extends GameActivity{
         changeColor(board.getStarter());
 
 
-        CardAdapter cardAdapter = new CardAdapter(this);
+        final CardAdapter cardAdapter = new CardAdapter(this);
         for(int i = 0; i < 20; i++){
             cardAdapter.boardCards[i] = cardAdapter.cardId[board.getPicNums().get(i)];
         }
@@ -97,6 +100,34 @@ public class SpyMasterActivity extends GameActivity{
         sideButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+            }
+        });
+
+        cards.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                ((ImageView) previewLayout.getChildAt(0)).setImageResource(cardAdapter.boardCards[i]);
+                previewLayout.setVisibility(View.VISIBLE);
+                AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
+                anim.setDuration(200);
+                anim.setRepeatCount(0);
+                anim.setRepeatMode(Animation.REVERSE);
+                previewLayout.startAnimation(anim);
+
+                return true;
+            }
+        });
+
+        previewLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlphaAnimation anim = new AlphaAnimation(1.0f, 0.0f);
+                anim.setDuration(200);
+                anim.setRepeatCount(0);
+                anim.setRepeatMode(Animation.REVERSE);
+                previewLayout.startAnimation(anim);
+                previewLayout.setVisibility(View.GONE);
             }
         });
 
@@ -131,6 +162,8 @@ public class SpyMasterActivity extends GameActivity{
     @Override
     void endTurn() {
         board.endTurn();
+        showToast(board.getStarter());
+        super.changeColor(board.getStarter());
         changeColor(board.getStarter());
     }
 

@@ -8,6 +8,8 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.view.Display;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -16,6 +18,7 @@ import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.pressfforrespect.codenamespictures.game.Team;
 
@@ -38,6 +41,7 @@ public abstract class GameActivity extends AppCompatActivity {
     protected DiscreteSeekBar discreteSeekBar;
     protected TextView description;
     protected View dummyView;
+    protected FrameLayout previewLayout;
 
     class ImageAdapter extends BaseAdapter{
 
@@ -86,6 +90,7 @@ public abstract class GameActivity extends AppCompatActivity {
         public View getView(int i, View view, ViewGroup viewGroup) {
             return null;
         }
+
     }
 
 
@@ -98,6 +103,10 @@ public abstract class GameActivity extends AppCompatActivity {
         cards = findViewById(R.id.cards_view);
 
         cards.setLongClickable(true);
+
+        previewLayout = findViewById(R.id.preview_layout);
+
+        previewLayout.setVisibility(View.GONE);
 
 
         pause = findViewById(R.id.pause);
@@ -188,5 +197,18 @@ public abstract class GameActivity extends AppCompatActivity {
         LinearLayout.LayoutParams barLayout = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         barLayout.setMargins(width/60,height/60,width/60,0);
         gameBar.setLayoutParams(barLayout);
+    }
+
+    void showToast(Team teamTurn) {
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = teamTurn == Team.RED? inflater.inflate(R.layout.toast_layout_red, (ViewGroup)findViewById(R.id.toast_layout_red)) :
+                inflater.inflate(R.layout.toast_layout_blue, (ViewGroup)findViewById(R.id.toast_layout_blue));
+
+
+        Toast toast = new Toast(getApplicationContext());
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setView(layout);
+        toast.show();
     }
 }
