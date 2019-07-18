@@ -16,4 +16,6 @@
     <string name="discover">Discover</string>
     <string name="seekbar_str"> Number\nof cards:</string>
     <string name="spymaster_turn">Pass to spies</string>
+    <string name="exit_game">Exit Game</string>
+
 </resources>

@@ -5,9 +5,11 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,7 +81,7 @@ public class FieldOperatorActivity extends GameActivity {
         super.onCreate(savedInstanceState);
 
         board = new Board();
-        super.changeColor(board.getStarter());
+        changeColor(board.getStarter());
 
 
         FieldOperatorActivity.CardAdapter cardAdapter = new FieldOperatorActivity.CardAdapter(this);
@@ -112,14 +114,6 @@ public class FieldOperatorActivity extends GameActivity {
 
         sideButton.setText(R.string.end_turn);
 
-//        cards.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-//
-//            @Override
-//            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-//
-//                return true;
-//            }
-//        });
 
         pause.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,13 +155,13 @@ public class FieldOperatorActivity extends GameActivity {
             transaction.add(R.id.container, new PauseFragment(this), PAUSE_FRAGMENT_TAG);
             transaction.addToBackStack(null);
             transaction.commit();
-            pauseLayout.setVisibility(View.VISIBLE);
+            extraLayout.setVisibility(View.VISIBLE);
             cards.setVisibility(View.GONE);
             sideButton.setVisibility(View.GONE);
             timer.cancel();
         }else{
             transaction.remove(getSupportFragmentManager().findFragmentByTag(PAUSE_FRAGMENT_TAG)).commit();
-            pauseLayout.setVisibility(View.GONE);
+            extraLayout.setVisibility(View.GONE);
             cards.setVisibility(View.VISIBLE);
             sideButton.setVisibility(View.VISIBLE);
 
@@ -209,24 +203,46 @@ public class FieldOperatorActivity extends GameActivity {
         timer.start();
     }
 
+    @SuppressLint("ResourceType")
     @Override
-    void endGame() {
+    void endGame(final Team team) {
+        isEnded = true;
+        timer.cancel();
+        cards.setEnabled(false);
 
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                GameEndFragment gameEnd = new GameEndFragment(FieldOperatorActivity.this);
+                gameEnd.setWinner(team);
+                transaction.add(R.id.container, gameEnd, END_FRAGMENT_TAG);
+                transaction.addToBackStack(null);
+                transaction.commit();
+                extraLayout.setVisibility(View.VISIBLE);
+                cards.setVisibility(View.GONE);
+                sideButton.setVisibility(View.GONE);
+                pause.setVisibility(View.GONE);
+            }
+        }, 1000);
     }
 
     @SuppressLint("ResourceType")
     private void cardClicked(CardView card, int i){
 
         Team cardTeam =  board.getTeam()[i];
-
-
+        int state = board.reduceNumOfTeamCards(cardTeam);
 
         FlipAnimation flipAnimation = new FlipAnimation(card, cardTeam);
         card.startAnimation(flipAnimation);
 
-        if(cardTeam == Team.ASSASSIN)
-            endGame();
-        else if(board.getStarter() != cardTeam)
+        if(cardTeam == Team.ASSASSIN || state != 0) {
+            if (board.getStarter() == Team.RED || state == 2)
+                endGame(Team.BLUE);
+            else if (board.getStarter() == Team.BLUE || state == 1)
+                endGame(Team.RED);
+        } else if(board.getStarter() != cardTeam)
             endTurn();
+
     }
 }

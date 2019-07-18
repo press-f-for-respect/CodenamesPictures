@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentTransaction;
 import com.pressfforrespect.codenamespictures.game.Board;
+import com.pressfforrespect.codenamespictures.game.Team;
 
 
 public class SpyMasterActivity extends GameActivity{
@@ -59,7 +61,10 @@ public class SpyMasterActivity extends GameActivity{
             }else{
                 card = (CardView) view;
             }
-            ((ImageView)((FrameLayout) card.getChildAt(0)).getChildAt(0)).setImageResource(boardCards[i]);
+
+            ImageView cardImage = (ImageView)((FrameLayout) card.getChildAt(0)).getChildAt(0);
+            cardImage.setImageResource(boardCards[i]);
+            cardImage.setAlpha((float) 0.5);
 
             return card;
         }
@@ -71,7 +76,7 @@ public class SpyMasterActivity extends GameActivity{
         super.onCreate(savedInstanceState);
 
         board = new Board();
-        super.changeColor(board.getStarter());
+        changeColor(board.getStarter());
 
 
         CardAdapter cardAdapter = new CardAdapter(this);
@@ -107,14 +112,14 @@ public class SpyMasterActivity extends GameActivity{
             transaction.add(R.id.container, new PauseFragment(this), PAUSE_FRAGMENT_TAG);
             transaction.addToBackStack(null);
             transaction.commit();
-            pauseLayout.setVisibility(View.VISIBLE);
+            extraLayout.setVisibility(View.VISIBLE);
             cards.setVisibility(View.GONE);
             sideButton.setVisibility(View.GONE);
             description.setVisibility(View.GONE);
             discreteSeekBar.setVisibility(View.GONE);
         }else{
             transaction.remove(getSupportFragmentManager().findFragmentByTag(PAUSE_FRAGMENT_TAG)).commit();
-            pauseLayout.setVisibility(View.GONE);
+            extraLayout.setVisibility(View.GONE);
             cards.setVisibility(View.VISIBLE);
             sideButton.setVisibility(View.VISIBLE);
             description.setVisibility(View.VISIBLE);
@@ -126,11 +131,29 @@ public class SpyMasterActivity extends GameActivity{
     @Override
     void endTurn() {
         board.endTurn();
-        super.changeColor(board.getStarter());
+        changeColor(board.getStarter());
     }
 
     @Override
-    void endGame() {
+    void endGame(final Team team) {
+        isEnded = true;
+        cards.setEnabled(false);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                GameEndFragment gameEnd = new GameEndFragment(SpyMasterActivity.this);
+                gameEnd.setWinner(team);
+                transaction.add(R.id.container, gameEnd, END_FRAGMENT_TAG);
+                transaction.addToBackStack(null);
+                transaction.commit();
+                extraLayout.setVisibility(View.VISIBLE);
+                cards.setVisibility(View.GONE);
+                sideButton.setVisibility(View.GONE);
+                pause.setVisibility(View.GONE);
+            }
+        }, 1000);
 
     }
 

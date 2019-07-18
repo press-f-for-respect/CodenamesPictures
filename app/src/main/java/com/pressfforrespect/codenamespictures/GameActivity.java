@@ -27,10 +27,12 @@ public abstract class GameActivity extends AppCompatActivity {
     protected Button pause;
     protected Button sideButton;
     protected GridView cards;
-    protected FrameLayout pauseLayout;
+    protected FrameLayout extraLayout;
     protected LinearLayout gameBar;
     protected Boolean isPaused = false;
+    protected Boolean isEnded = false;
     final static public String PAUSE_FRAGMENT_TAG = "Pause";
+    final static public String END_FRAGMENT_TAG = "End Game";
     protected int width;
     protected int height;
     protected DiscreteSeekBar discreteSeekBar;
@@ -106,8 +108,8 @@ public abstract class GameActivity extends AppCompatActivity {
             }
         });
 
-        pauseLayout = findViewById(R.id.container);
-        pauseLayout.setVisibility(View.GONE);
+        extraLayout = findViewById(R.id.container);
+        extraLayout.setVisibility(View.GONE);
 
         sideButton = findViewById(R.id.end_turn);
 
@@ -131,10 +133,10 @@ public abstract class GameActivity extends AppCompatActivity {
     public void changeColor(Team team){
         if(team == Team.BLUE) {
             pause.setBackgroundColor(Color.parseColor(getResources().getString(R.color.colorBlue)));
-            pauseLayout.setBackgroundColor(Color.parseColor(getResources().getString(R.color.colorBlue)));
+            extraLayout.setBackgroundColor(Color.parseColor(getResources().getString(R.color.colorBlue)));
         }else {
             pause.setBackgroundColor(Color.parseColor(getResources().getString(R.color.colorRed)));
-            pauseLayout.setBackgroundColor(Color.parseColor(getResources().getString(R.color.colorRed)));
+            extraLayout.setBackgroundColor(Color.parseColor(getResources().getString(R.color.colorRed)));
         }
 
     }
@@ -143,16 +145,17 @@ public abstract class GameActivity extends AppCompatActivity {
 
     abstract void endTurn();
 
-    abstract void endGame();
+    abstract void endGame(Team team);
 
     protected void finishGame(){
-//        BackgroundMusic.getInstance().stop();
+        BackgroundMusic.getInstance().stop();
         finish();
     }
 
     @Override
     public void onBackPressed() {
-        gamePause();
+        if(!isEnded)
+            gamePause();
     }
 
     @Override

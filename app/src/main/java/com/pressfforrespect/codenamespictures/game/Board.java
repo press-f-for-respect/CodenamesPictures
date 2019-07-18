@@ -12,6 +12,7 @@ public class Board {
     private Team starter;
     private ArrayList<Integer> picNums = new ArrayList<>();
     private Random rand = new Random();
+    private int numOfBlueCards = 7, numOfRedCards = 7;
 
 
     public Board() {
@@ -42,7 +43,12 @@ public class Board {
                 Team.BLUE, Team.BLUE, Team.BLUE, Team.BLUE, Team.BLUE, Team.BLUE, Team.BLUE,
                 Team.BYSTANDER, Team.BYSTANDER, Team.BYSTANDER, Team.BYSTANDER, Team.ASSASSIN};
 
-       initial[7] = (starter == Team.RED) ? Team.RED : Team.BLUE;
+       if(starter == Team.RED)
+           numOfRedCards += 1;
+       else{
+           initial[7] = Team.BLUE;
+           numOfBlueCards += 1;
+       }
 
         Collections.shuffle(Arrays.asList(initial));
 
@@ -66,5 +72,18 @@ public class Board {
 
     public Team[] getTeam() {
         return team;
+    }
+
+    public int reduceNumOfTeamCards(Team team){
+        if(team == Team.RED)
+            numOfRedCards -= 1;
+        if(team == Team.BLUE)
+            numOfBlueCards -= 1;
+
+        if(numOfBlueCards == 0)
+            return 2;
+        if(numOfRedCards == 0)
+            return 1;
+        return 0;
     }
 }
