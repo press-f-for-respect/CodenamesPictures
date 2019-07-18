@@ -18,4 +18,14 @@
     <string name="spymaster_turn">Pass to spies</string>
     <string name="exit_game">Exit Game</string>
 
+    <string name="connect_peer_button">connect</string>
+    <string name="disconnect_peer_button">disconnect</string>
+    <string name="label_me">me</string>
+    <string name="label_peers">peers</string>
+    <string name="empty_message">No devices found. Turn on P2P and perform discovery from the Action Bar</string>
+    <string name="enable_p2p_button">enable</string>
+    <string name="discover_peers_button">discover</string>
+    <string name="no">no</string>
+    <string name="yes">yes</string>
+    <string name="group_owner_text">group owner</string>
 </resources>
