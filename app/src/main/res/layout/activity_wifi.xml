@@ -28,12 +28,12 @@
             tools:layout="@layout/device_list">
         </fragment>
 
-        <!--<fragment-->
-            <!--class="com.example.shriyanshu.wifisharefilesexampleandroid.DeviceDetailFragment"-->
-            <!--android:id="@+id/fragment_detail"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--tools:layout="@layout/device_detail">-->
-        <!--</fragment>-->
+        <fragment
+            class="com.pressfforrespect.codenamespictures.DeviceDetailFragment"
+            android:id="@+id/fragment_detail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout="@layout/device_detail">
+        </fragment>
     </LinearLayout>
 </LinearLayout>

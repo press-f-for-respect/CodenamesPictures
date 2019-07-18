@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.wifi.p2p.WifiP2pConfig;
+import android.net.wifi.p2p.WifiP2pDevice;
 import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -19,7 +21,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.pressfforrespect.codenamespictures.network.WifiDirectBroadcastReceiver;
 
-public class WifiActivity extends AppCompatActivity implements WifiP2pManager.ChannelListener {
+public class WifiActivity extends AppCompatActivity implements WifiP2pManager.ChannelListener, DeviceListFragment.DeviceActionListener {
 
     private WifiP2pManager wifiP2pManager;
     private WifiP2pManager.Channel channel;
@@ -105,5 +107,37 @@ public class WifiActivity extends AppCompatActivity implements WifiP2pManager.Ch
             default:
                     return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void showDetails(WifiP2pDevice device) {
+        DeviceDetailFragment fragment = (DeviceDetailFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.fragment_detail);
+        fragment.showDetails(device);
+    }
+
+    @Override
+    public void cancelDisconnect() {
+
+    }
+
+    @Override
+    public void connect(WifiP2pConfig config) {
+        wifiP2pManager.connect(channel, config, new WifiP2pManager.ActionListener() {
+            @Override
+            public void onSuccess() {
+
+            }
+
+            @Override
+            public void onFailure(int i) {
+
+            }
+        });
+    }
+
+    @Override
+    public void disconnect() {
+
     }
 }

@@ -21,4 +21,7 @@
     <string name="empty_message">No devices found. Turn on P2P and perform discovery from the Action Bar</string>
     <string name="enable_p2p_button">enable</string>
     <string name="discover_peers_button">discover</string>
+    <string name="no">no</string>
+    <string name="yes">yes</string>
+    <string name="group_owner_text">group owner</string>
 </resources>

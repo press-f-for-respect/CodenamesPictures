@@ -3,6 +3,7 @@ package com.pressfforrespect.codenamespictures;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.net.wifi.p2p.WifiP2pConfig;
 import android.net.wifi.p2p.WifiP2pDevice;
 import android.net.wifi.p2p.WifiP2pDeviceList;
 import android.net.wifi.p2p.WifiP2pManager;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -92,6 +94,12 @@ public class DeviceListFragment extends ListFragment implements WifiP2pManager.P
         }
     }
 
+    @Override
+    public void onListItemClick(@NonNull ListView l, @NonNull View v, int position, long id) {
+        device = (WifiP2pDevice) getListAdapter().getItem(position);
+        ((DeviceActionListener) getActivity()).showDetails(device);
+    }
+
     private class WiFiPeerListAdapter extends ArrayAdapter<WifiP2pDevice> {
 
         private List<WifiP2pDevice> items;
@@ -128,5 +136,16 @@ public class DeviceListFragment extends ListFragment implements WifiP2pManager.P
             return v;
 
         }
+    }
+
+    public interface DeviceActionListener {
+
+        void showDetails(WifiP2pDevice device);
+
+        void cancelDisconnect();
+
+        void connect(WifiP2pConfig config);
+
+        void disconnect();
     }
 }

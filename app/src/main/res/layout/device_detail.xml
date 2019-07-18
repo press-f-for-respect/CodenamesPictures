@@ -5,27 +5,14 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_connect"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:text="@string/connect_peer_button"
-                android:background="@color/colorPrimary"
-                android:layout_margin="5dp"
-                android:textColor="#ffffff"/>
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_disconnect"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:text="@string/disconnect_peer_button"
-                android:background="@color/colorPrimary"
-                android:layout_margin="5dp"
-                android:textColor="#ffffff"/>
-        </LinearLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_connect"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="@string/connect_peer_button"
+            android:background="@color/colorPrimary"
+            android:layout_margin="5dp"
+            android:textColor="#ffffff"/>
         <TextView
             android:id="@+id/tv_deviceAddress"
             android:layout_width="match_parent"
