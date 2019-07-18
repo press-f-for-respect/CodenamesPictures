@@ -101,13 +101,13 @@ public class FieldOperatorActivity extends GameActivity {
 
                 if(!clicked[i]) {
                     cardClicked((CardView) view, i);
-                    if (playSound) {
-                        //TODO change sound
-                        MediaPlayer sound = MediaPlayer.create(FieldOperatorActivity.this, R.raw.fart);
-                        sound.setLooping(false);
-                        sound.setVolume(100, 100);
-                        sound.start();
-                    }
+//                    if (playSound) {
+//                        //TODO change sound
+//                        MediaPlayer sound = MediaPlayer.create(FieldOperatorActivity.this, R.raw.fart);
+//                        sound.setLooping(false);
+//                        sound.setVolume(100, 100);
+//                        sound.start();
+//                    }
                     clicked[i] = true;
                 }
 
@@ -174,7 +174,7 @@ public class FieldOperatorActivity extends GameActivity {
         };
         timer.start();
 
-        discreteSeekBar.setVisibility(View.GONE);
+//        discreteSeekBar.setVisibility(View.GONE);
         description.setVisibility(View.GONE);
 
     }

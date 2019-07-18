@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        BackgroundMusic.getInstance(this, R.raw.ykc);
+//        BackgroundMusic.getInstance(this, R.raw.ykc);
         BackgroundMusic.setDoPlay(getSharedPreferences(SettingActivity.KEY, Context.MODE_PRIVATE).getBoolean(String.valueOf(R.id.music_check), false));
     }
 
@@ -67,14 +67,14 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         clicked = false;
         //TODO change menu music
-        BackgroundMusic.getInstance().play();
+//        BackgroundMusic.getInstance().play();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        if(!clicked)
-            BackgroundMusic.getInstance().pause();
+//        if(!clicked)
+//            BackgroundMusic.getInstance().pause();
     }
 
     void selectPlay(){

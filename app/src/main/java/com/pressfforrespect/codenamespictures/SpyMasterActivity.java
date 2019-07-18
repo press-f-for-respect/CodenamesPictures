@@ -148,14 +148,14 @@ public class SpyMasterActivity extends GameActivity{
             cards.setVisibility(View.GONE);
             sideButton.setVisibility(View.GONE);
             description.setVisibility(View.GONE);
-            discreteSeekBar.setVisibility(View.GONE);
+//            discreteSeekBar.setVisibility(View.GONE);
         }else{
             transaction.remove(getSupportFragmentManager().findFragmentByTag(PAUSE_FRAGMENT_TAG)).commit();
             extraLayout.setVisibility(View.GONE);
             cards.setVisibility(View.VISIBLE);
             sideButton.setVisibility(View.VISIBLE);
             description.setVisibility(View.VISIBLE);
-            discreteSeekBar.setVisibility(View.VISIBLE);
+//            discreteSeekBar.setVisibility(View.VISIBLE);
         }
         isPaused = !isPaused;
     }
