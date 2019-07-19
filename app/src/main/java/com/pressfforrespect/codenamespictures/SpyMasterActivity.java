@@ -87,6 +87,46 @@ public class SpyMasterActivity extends GameActivity{
             cardAdapter.boardCards[i] = cardAdapter.cardId[board.getPicNums().get(i)];
         }
         cards.setAdapter(cardAdapter);
+        cards.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+            @SuppressLint("ResourceType")
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                ((ImageView) previewLayout.getChildAt(1)).setImageResource(
+                        cardAdapter.boardCards[i]);
+                previewLayout.setVisibility(View.VISIBLE);
+                AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
+                anim.setDuration(200);
+                anim.setRepeatCount(0);
+                anim.setRepeatMode(Animation.REVERSE);
+                previewLayout.startAnimation(anim);
+
+                switch (board.getTeam()[i]){
+                    case RED:
+                        blurLayout.setBackgroundColor(Color.parseColor(getResources().getString(R.color.colorRed)));
+                        break;
+                    case BLUE:
+                        blurLayout.setBackgroundColor(Color.parseColor(getResources().getString(R.color.colorBlue)));
+                        break;
+                    case ASSASSIN:
+                        blurLayout.setBackgroundColor(Color.parseColor(getResources().getString(R.color.colorBlack)));
+                        break;
+                    case BYSTANDER:
+                        blurLayout.setBackgroundColor(Color.parseColor(getResources().getString(R.color.colorCream)));
+                        break;
+                    default:
+                        blurLayout.setBackgroundColor(Color.parseColor(getResources().getString(R.color.colorCream)));
+                }
+                blurLayout.startBlur();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        blurLayout.pauseBlur();
+                    }
+                }, 100);
+                return true;
+            }
+        });
 
         pause.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,23 +140,6 @@ public class SpyMasterActivity extends GameActivity{
         sideButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            }
-        });
-
-        cards.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                ((ImageView) previewLayout.getChildAt(0)).setImageResource(
-                        cardAdapter.boardCards[i]);
-                previewLayout.setVisibility(View.VISIBLE);
-                AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
-                anim.setDuration(200);
-                anim.setRepeatCount(0);
-                anim.setRepeatMode(Animation.REVERSE);
-                previewLayout.startAnimation(anim);
-
-                return true;
             }
         });
 
@@ -148,14 +171,14 @@ public class SpyMasterActivity extends GameActivity{
             cards.setVisibility(View.GONE);
             sideButton.setVisibility(View.GONE);
             description.setVisibility(View.GONE);
-//            discreteSeekBar.setVisibility(View.GONE);
+            discreteSeekBar.setVisibility(View.GONE);
         }else{
             transaction.remove(getSupportFragmentManager().findFragmentByTag(PAUSE_FRAGMENT_TAG)).commit();
             extraLayout.setVisibility(View.GONE);
             cards.setVisibility(View.VISIBLE);
             sideButton.setVisibility(View.VISIBLE);
             description.setVisibility(View.VISIBLE);
-//            discreteSeekBar.setVisibility(View.VISIBLE);
+            discreteSeekBar.setVisibility(View.VISIBLE);
         }
         isPaused = !isPaused;
     }
