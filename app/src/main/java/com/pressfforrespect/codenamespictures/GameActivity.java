@@ -137,8 +137,6 @@ public abstract class GameActivity extends AppCompatActivity {
         setView();
 
 //        BackgroundMusic.getInstance().stop();
-        //TODO change game music
-//        BackgroundMusic.getInstance(this, R.raw.ykc).play();
 
     }
 
@@ -161,7 +159,6 @@ public abstract class GameActivity extends AppCompatActivity {
     abstract void endGame(Team team);
 
     protected void finishGame(){
-//        BackgroundMusic.getInstance().stop();
         finish();
     }
 
