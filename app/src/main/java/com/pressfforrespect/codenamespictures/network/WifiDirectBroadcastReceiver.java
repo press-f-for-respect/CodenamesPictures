@@ -43,6 +43,7 @@ public class WifiDirectBroadcastReceiver extends BroadcastReceiver {
                 mManager.requestPeers(mChannel, (WifiP2pManager.PeerListListener) mActivity.getSupportFragmentManager().findFragmentById(R.id.fragment_list));
             }
         } else if (WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION.equals(action)) {
+            System.out.println("connection changed");
             NetworkInfo networkInfo = (NetworkInfo) intent.getParcelableExtra(WifiP2pManager.EXTRA_NETWORK_INFO);
             if (networkInfo.isConnected()) {
                 DeviceDetailFragment fragment = (DeviceDetailFragment) mActivity

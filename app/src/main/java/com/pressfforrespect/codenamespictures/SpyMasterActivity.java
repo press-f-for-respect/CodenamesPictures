@@ -18,6 +18,7 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentTransaction;
 import com.pressfforrespect.codenamespictures.game.Board;
 import com.pressfforrespect.codenamespictures.game.Team;
+import com.pressfforrespect.codenamespictures.network.SpyMasterServer;
 
 
 public class SpyMasterActivity extends GameActivity{
@@ -77,8 +78,8 @@ public class SpyMasterActivity extends GameActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         board = new Board();
+        new SpyMasterServer(board).execute("");
         changeColor(board.getStarter());
 
 
