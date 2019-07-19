@@ -20,7 +20,7 @@
 
     <string name="connect_peer_button">connect</string>
     <string name="disconnect_peer_button">disconnect</string>
-    <string name="label_me">me</string>
+    <string name="label_me">Me</string>
     <string name="label_peers">peers</string>
     <string name="empty_message">No devices found. Turn on P2P and perform discovery from the Action Bar</string>
     <string name="enable_p2p_button">enable</string>
