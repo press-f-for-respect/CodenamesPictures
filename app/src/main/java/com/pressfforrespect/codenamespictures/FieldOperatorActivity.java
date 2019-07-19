@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
@@ -36,7 +37,7 @@ public class FieldOperatorActivity extends GameActivity {
             super(context);
         }
 
-        @SuppressLint({"ResourceAsColor", "ResourceType"})
+        @SuppressLint({"ResourceAsColor", "ResourceType", "ClickableViewAccessibility"})
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
 
@@ -112,26 +113,32 @@ public class FieldOperatorActivity extends GameActivity {
 
             }
         });
-
-        sideButton.setText(R.string.end_turn);
-
         cards.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
 
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if (!clicked[i]) {
-                    ((ImageView) previewLayout.getChildAt(0)).setImageResource(cardAdapter.cardId[board.getPicNums().get(i)]);
-                    previewLayout.setVisibility(View.VISIBLE);
-                    AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
-                    anim.setDuration(200);
-                    anim.setRepeatCount(0);
-                    anim.setRepeatMode(Animation.REVERSE);
-                    previewLayout.startAnimation(anim);
-                }
+                ImageView card = (ImageView) previewLayout.getChildAt(1);
+                card.setImageResource(cardAdapter.cardId[board.getPicNums().get(i)]);
+                card.setElevation(20);
+                previewLayout.setVisibility(View.VISIBLE);
+                AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
+                anim.setDuration(200);
+                anim.setRepeatCount(0);
+                anim.setRepeatMode(Animation.REVERSE);
+                previewLayout.startAnimation(anim);
 
+                blurLayout.startBlur();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        blurLayout.pauseBlur();
+                    }
+                }, 100);
                 return true;
             }
         });
+
+        sideButton.setText(R.string.end_turn);
 
         previewLayout.setOnClickListener(new View.OnClickListener() {
             @Override

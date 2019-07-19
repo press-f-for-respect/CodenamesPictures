@@ -24,6 +24,8 @@ import com.pressfforrespect.codenamespictures.game.Team;
 
 import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 
+import io.alterac.blurkit.BlurLayout;
+
 
 public abstract class GameActivity extends AppCompatActivity {
 
@@ -42,6 +44,7 @@ public abstract class GameActivity extends AppCompatActivity {
     protected TextView description;
     protected View dummyView;
     protected FrameLayout previewLayout;
+    protected BlurLayout blurLayout;
 
     class ImageAdapter extends BaseAdapter{
 
@@ -105,9 +108,10 @@ public abstract class GameActivity extends AppCompatActivity {
         cards.setLongClickable(true);
 
         previewLayout = findViewById(R.id.preview_layout);
-
         previewLayout.setVisibility(View.GONE);
 
+        blurLayout = findViewById(R.id.blur_layout);
+        blurLayout.setDownscaleFactor(0.5F);
 
         pause = findViewById(R.id.pause);
         pause.setOnClickListener(new View.OnClickListener() {
@@ -132,9 +136,7 @@ public abstract class GameActivity extends AppCompatActivity {
 
         setView();
 
-        BackgroundMusic.getInstance().stop();
-        //TODO change game music
-        BackgroundMusic.getInstance(this, R.raw.ykc).play();
+//        BackgroundMusic.getInstance().stop();
 
     }
 
@@ -157,7 +159,6 @@ public abstract class GameActivity extends AppCompatActivity {
     abstract void endGame(Team team);
 
     protected void finishGame(){
-        BackgroundMusic.getInstance().stop();
         finish();
     }
 
