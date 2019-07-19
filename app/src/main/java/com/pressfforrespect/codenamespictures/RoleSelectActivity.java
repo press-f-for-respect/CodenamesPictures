@@ -68,9 +68,9 @@ public class RoleSelectActivity extends AppCompatActivity {
         clicked = false;
         if(BackgroundMusic.getInstance() != null)
             BackgroundMusic.getInstance().play();
-//        else
+        else
             //TODO change music
-//            BackgroundMusic.getInstance(this, R.raw.ykc).play();
+            BackgroundMusic.getInstance(this, R.raw.ykc).play();
     }
 
     @Override

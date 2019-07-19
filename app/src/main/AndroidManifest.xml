@@ -21,11 +21,10 @@
         android:hardwareAccelerated="false"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".WifiActivity" />
-        tools:ignore="GoogleAppIndexingWarning"
 
-        >
-        <activity android:name=".WifiActivity"></activity>
+        <activity android:name=".WifiActivity"
+            tools:ignore="GoogleAppIndexingWarning"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".RoleSelectActivity"
             android:screenOrientation="landscape" />

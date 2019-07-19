@@ -22,7 +22,7 @@ import android.widget.Toast;
 
 import com.pressfforrespect.codenamespictures.game.Team;
 
-//import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
+import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 
 
 public abstract class GameActivity extends AppCompatActivity {
@@ -38,7 +38,7 @@ public abstract class GameActivity extends AppCompatActivity {
     final static public String END_FRAGMENT_TAG = "End Game";
     protected int width;
     protected int height;
-//    protected DiscreteSeekBar discreteSeekBar;
+    protected DiscreteSeekBar discreteSeekBar;
     protected TextView description;
     protected View dummyView;
     protected FrameLayout previewLayout;
@@ -124,7 +124,7 @@ public abstract class GameActivity extends AppCompatActivity {
 
         gameBar = findViewById(R.id.game_bar);
 
-//        discreteSeekBar = findViewById(R.id.guess_seekbar);
+        discreteSeekBar = findViewById(R.id.guess_seekbar);
 
         description = findViewById(R.id.seekbar_description);
 
@@ -132,9 +132,9 @@ public abstract class GameActivity extends AppCompatActivity {
 
         setView();
 
-//        BackgroundMusic.getInstance().stop();
+        BackgroundMusic.getInstance().stop();
         //TODO change game music
-//        BackgroundMusic.getInstance(this, R.raw.ykc).play();
+        BackgroundMusic.getInstance(this, R.raw.ykc).play();
 
     }
 
@@ -157,7 +157,7 @@ public abstract class GameActivity extends AppCompatActivity {
     abstract void endGame(Team team);
 
     protected void finishGame(){
-//        BackgroundMusic.getInstance().stop();
+        BackgroundMusic.getInstance().stop();
         finish();
     }
 

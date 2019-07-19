@@ -5,7 +5,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -101,13 +100,13 @@ public class FieldOperatorActivity extends GameActivity {
 
                 if(!clicked[i]) {
                     cardClicked((CardView) view, i);
-//                    if (playSound) {
-//                        //TODO change sound
-//                        MediaPlayer sound = MediaPlayer.create(FieldOperatorActivity.this, R.raw.fart);
-//                        sound.setLooping(false);
-//                        sound.setVolume(100, 100);
-//                        sound.start();
-//                    }
+                    if (playSound) {
+                        //TODO change sound
+                        MediaPlayer sound = MediaPlayer.create(FieldOperatorActivity.this, R.raw.card_flip);
+                        sound.setLooping(false);
+                        sound.setVolume(100, 100);
+                        sound.start();
+                    }
                     clicked[i] = true;
                 }
 
@@ -174,7 +173,7 @@ public class FieldOperatorActivity extends GameActivity {
         };
         timer.start();
 
-//        discreteSeekBar.setVisibility(View.GONE);
+        discreteSeekBar.setVisibility(View.GONE);
         description.setVisibility(View.GONE);
 
     }
@@ -218,6 +217,15 @@ public class FieldOperatorActivity extends GameActivity {
         board.endTurn();
         showToast(board.getStarter());
         changeColor(board.getStarter());
+
+
+        if (getSharedPreferences(SettingActivity.KEY, Context.MODE_PRIVATE).getBoolean(String.valueOf(R.id.sound_check), false)) {
+            //TODO change sound
+            MediaPlayer sound = MediaPlayer.create(FieldOperatorActivity.this, R.raw.change);
+            sound.setLooping(false);
+            sound.setVolume(100, 100);
+            sound.start();
+        }
 
         timer.cancel();
         timer = new CountDownTimer(120000, 1000) {
