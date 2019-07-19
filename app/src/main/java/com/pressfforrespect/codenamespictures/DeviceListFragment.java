@@ -26,7 +26,7 @@ public class DeviceListFragment extends ListFragment implements WifiP2pManager.P
 
     private List<WifiP2pDevice> peers = new ArrayList<>();
     private ProgressDialog progressDialog = null;
-    View mContentView = null;
+    private View mContentView = null;
     private WifiP2pDevice device;
 
 
