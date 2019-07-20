@@ -7,7 +7,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -58,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        BackgroundMusic.getInstance(this, R.raw.ykc);
+        BackgroundMusic.getInstance(this, R.raw.espionage);
         BackgroundMusic.setDoPlay(getSharedPreferences(SettingActivity.KEY, Context.MODE_PRIVATE).getBoolean(String.valueOf(R.id.music_check), false));
     }
 
@@ -67,20 +69,21 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         clicked = false;
         //TODO change menu music
-//        BackgroundMusic.getInstance().play();
+        BackgroundMusic.getInstance().play();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-//        if(!clicked)
-//            BackgroundMusic.getInstance().pause();
+        if(!clicked)
+            BackgroundMusic.getInstance().pause();
     }
 
     void selectPlay(){
         clicked = true;
         Intent myIntent = new Intent(this, RoleSelectActivity.class);
         startActivity(myIntent);
+        Log.i("model", "selectPlay: " + Build.MODEL);
     }
 
     void selectHelp(){
@@ -113,5 +116,10 @@ public class MainActivity extends AppCompatActivity {
                 .setCancelable(true);
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        alert();
     }
 }

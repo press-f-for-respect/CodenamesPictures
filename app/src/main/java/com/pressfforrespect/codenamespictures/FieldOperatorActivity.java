@@ -2,16 +2,13 @@ package com.pressfforrespect.codenamespictures;
 
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentTransaction;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
@@ -20,7 +17,7 @@ import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
-
+import android.widget.Toast;
 import com.pressfforrespect.codenamespictures.Animation.FlipAnimation;
 import com.pressfforrespect.codenamespictures.game.Board;
 import com.pressfforrespect.codenamespictures.game.Team;
@@ -31,6 +28,7 @@ public class FieldOperatorActivity extends GameActivity {
     private CountDownTimer timer;
     private long timeUntilFinished;
     private boolean[] clicked = new boolean[20];
+    private int numOfMoves = -1;
 
     class CardAdapter extends GameActivity.ImageAdapter {
 
@@ -38,7 +36,7 @@ public class FieldOperatorActivity extends GameActivity {
             super(context);
         }
 
-        @SuppressLint({"ResourceAsColor", "ResourceType", "ClickableViewAccessibility"})
+        @SuppressLint({"ResourceAsColor", "ResourceType"})
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
 
@@ -101,15 +99,18 @@ public class FieldOperatorActivity extends GameActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 if(!clicked[i]) {
-                    cardClicked((CardView) view, i);
-//                    if (playSound) {
-//                        //TODO change sound
-//                        MediaPlayer sound = MediaPlayer.create(FieldOperatorActivity.this, R.raw.fart);
-//                        sound.setLooping(false);
-//                        sound.setVolume(100, 100);
-//                        sound.start();
-//                    }
-                    clicked[i] = true;
+                    if(numOfMoves != -1){
+                        cardClicked((CardView) view, i);
+                        clicked[i] = true;
+                        if (playSound) {
+                            MediaPlayer sound = MediaPlayer.create(FieldOperatorActivity.this, R.raw.card_flip);
+                            sound.setLooping(false);
+                            sound.setVolume(100, 100);
+                            sound.start();
+                        }
+                    }else {
+                        Toast.makeText(FieldOperatorActivity.this, "Number of moves hasn't been specified !", Toast.LENGTH_SHORT).show();
+                    }
                 }
 
             }
@@ -225,6 +226,15 @@ public class FieldOperatorActivity extends GameActivity {
         board.endTurn();
         showToast(board.getStarter());
         changeColor(board.getStarter());
+        numOfMoves = -1;
+
+
+        if (getSharedPreferences(SettingActivity.KEY, Context.MODE_PRIVATE).getBoolean(String.valueOf(R.id.sound_check), false)) {
+            MediaPlayer sound = MediaPlayer.create(FieldOperatorActivity.this, R.raw.change);
+            sound.setLooping(false);
+            sound.setVolume(100, 100);
+            sound.start();
+        }
 
         timer.cancel();
         timer = new CountDownTimer(120000, 1000) {
@@ -268,6 +278,7 @@ public class FieldOperatorActivity extends GameActivity {
 
     @SuppressLint("ResourceType")
     private void cardClicked(CardView card, int i){
+        numOfMoves -= 1;
 
         Team cardTeam =  board.getTeam()[i];
         int state = board.reduceNumOfTeamCards(cardTeam);
@@ -280,8 +291,15 @@ public class FieldOperatorActivity extends GameActivity {
                 endGame(Team.BLUE);
             else if (board.getStarter() == Team.BLUE || state == 1)
                 endGame(Team.RED);
-        } else if(board.getStarter() != cardTeam)
+        } else if(board.getStarter() != cardTeam || numOfMoves == 0)
             endTurn();
 
+    }
+
+    public void setNumOfMoves(int numOfMoves) {
+        if(numOfMoves != 0)
+            this.numOfMoves = numOfMoves;
+        else
+            this.numOfMoves = -2;
     }
 }
