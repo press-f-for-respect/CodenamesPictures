@@ -30,7 +30,8 @@ public class FieldOperatorActivity extends GameActivity {
     private CountDownTimer timer;
     private long timeUntilFinished;
     private boolean[] clicked = new boolean[20];
-    private int numOfMoves = -1;
+    private int numOfMoves = 1;
+    //TODO that shit
 
     class CardAdapter extends GameActivity.ImageAdapter {
 
@@ -241,7 +242,7 @@ public class FieldOperatorActivity extends GameActivity {
         board.endTurn();
         showToast(board.getStarter());
         changeColor(board.getStarter());
-        numOfMoves = -1;
+        //numOfMoves = -1;
 
 
         if (getSharedPreferences(SettingActivity.KEY, Context.MODE_PRIVATE).getBoolean(String.valueOf(R.id.sound_check), false)) {
@@ -293,7 +294,7 @@ public class FieldOperatorActivity extends GameActivity {
 
     @SuppressLint("ResourceType")
     private void cardClicked(CardView card, int i){
-        numOfMoves -= 1;
+        //numOfMoves -= 1;
 
         Team cardTeam =  board.getTeam()[i];
         int state = board.reduceNumOfTeamCards(cardTeam);

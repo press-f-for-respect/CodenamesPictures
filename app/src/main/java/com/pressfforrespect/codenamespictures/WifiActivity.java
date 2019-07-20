@@ -33,7 +33,7 @@ public class WifiActivity extends AppCompatActivity implements WifiP2pManager.Ch
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wifi);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+//        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         Toolbar wifiToolbar = (Toolbar) findViewById(R.id.wifi_toolbar);
         setSupportActionBar(wifiToolbar);
