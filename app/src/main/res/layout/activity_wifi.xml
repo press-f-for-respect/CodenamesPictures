@@ -25,7 +25,7 @@
             class="com.pressfforrespect.codenamespictures.DeviceListFragment"
             android:id="@+id/fragment_list"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/phone_list_height"
+            android:layout_height="wrap_content"
             tools:layout="@layout/device_list"
             android:layout_margin="5dp">
         </fragment>

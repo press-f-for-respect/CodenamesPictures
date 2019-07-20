@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
@@ -136,7 +137,7 @@ public abstract class GameActivity extends AppCompatActivity {
 
         setView();
 
-        BackgroundMusic.getInstance().stop();
+//        BackgroundMusic.getInstance().stop();
 
     }
 
@@ -160,6 +161,7 @@ public abstract class GameActivity extends AppCompatActivity {
 
     protected void finishGame(){
         finish();
+        startActivity(new Intent(this, MainActivity.class));
     }
 
     @Override
