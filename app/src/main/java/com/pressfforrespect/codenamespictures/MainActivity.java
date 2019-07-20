@@ -117,4 +117,9 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
     }
+
+    @Override
+    public void onBackPressed() {
+        alert();
+    }
 }
