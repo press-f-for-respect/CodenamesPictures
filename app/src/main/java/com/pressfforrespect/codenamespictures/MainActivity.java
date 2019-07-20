@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onStop() {
+
         super.onStop();
         if(!clicked)
             BackgroundMusic.getInstance().pause();
