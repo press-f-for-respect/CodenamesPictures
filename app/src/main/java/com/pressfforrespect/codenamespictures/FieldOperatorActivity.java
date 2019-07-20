@@ -4,6 +4,7 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentTransaction;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 import com.pressfforrespect.codenamespictures.Animation.FlipAnimation;
 import com.pressfforrespect.codenamespictures.game.Board;
 import com.pressfforrespect.codenamespictures.game.Team;
+import com.pressfforrespect.codenamespictures.network.FieldOperatorClient;
 
 public class FieldOperatorActivity extends GameActivity {
 
@@ -77,26 +79,37 @@ public class FieldOperatorActivity extends GameActivity {
         }
     }
 
+    public void setBoard(Board board) {
+        this.board = board;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent intent = getIntent();
+        new FieldOperatorClient(intent.getExtras().getString("IP"), 8888, this).start();
+    }
 
-        board = new Board();
-        changeColor(board.getStarter());
-
-
-        final FieldOperatorActivity.CardAdapter cardAdapter = new FieldOperatorActivity.CardAdapter(this);
-        for(int i = 0; i < 20; i++){
-            cardAdapter.boardCards[i] = cardAdapter.cardId[board.getPicNums().get(i)];
-        }
-
-        final boolean playSound = getSharedPreferences(SettingActivity.KEY, Context.MODE_PRIVATE).getBoolean(String.valueOf(R.id.sound_check), false);
-
-        cards.setAdapter(cardAdapter);
-        cards.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
+    public void onReceivedBoard() {
+        final Context context = this;
+        runOnUiThread(new Runnable() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void run() {
+                changeColor(board.getStarter());
+
+
+                final FieldOperatorActivity.CardAdapter cardAdapter = new FieldOperatorActivity.CardAdapter(context);
+                for(int i = 0; i < 20; i++){
+                    cardAdapter.boardCards[i] = cardAdapter.cardId[board.getPicNums().get(i)];
+                }
+
+                final boolean playSound = getSharedPreferences(SettingActivity.KEY, Context.MODE_PRIVATE).getBoolean(String.valueOf(R.id.sound_check), false);
+
+                cards.setAdapter(cardAdapter);
+                cards.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 if(!clicked[i]) {
                     if(numOfMoves != -1){
@@ -113,77 +126,79 @@ public class FieldOperatorActivity extends GameActivity {
                     }
                 }
 
-            }
-        });
-        cards.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                ImageView card = (ImageView) previewLayout.getChildAt(1);
-                card.setImageResource(cardAdapter.cardId[board.getPicNums().get(i)]);
-                card.setElevation(20);
-                previewLayout.setVisibility(View.VISIBLE);
-                AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
-                anim.setDuration(200);
-                anim.setRepeatCount(0);
-                anim.setRepeatMode(Animation.REVERSE);
-                previewLayout.startAnimation(anim);
-
-                blurLayout.startBlur();
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        blurLayout.pauseBlur();
                     }
-                }, 100);
-                return true;
+                });
+                cards.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+                    @Override
+                    public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        ImageView card = (ImageView) previewLayout.getChildAt(1);
+                        card.setImageResource(cardAdapter.cardId[board.getPicNums().get(i)]);
+                        card.setElevation(20);
+                        previewLayout.setVisibility(View.VISIBLE);
+                        AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
+                        anim.setDuration(200);
+                        anim.setRepeatCount(0);
+                        anim.setRepeatMode(Animation.REVERSE);
+                        previewLayout.startAnimation(anim);
+
+                        blurLayout.startBlur();
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                blurLayout.pauseBlur();
+                            }
+                        }, 100);
+                        return true;
+                    }
+                });
+
+                sideButton.setText(R.string.end_turn);
+
+                previewLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        AlphaAnimation anim = new AlphaAnimation(1.0f, 0.0f);
+                        anim.setDuration(200);
+                        anim.setRepeatCount(0);
+                        anim.setRepeatMode(Animation.REVERSE);
+                        previewLayout.startAnimation(anim);
+                        previewLayout.setVisibility(View.GONE);
+                    }
+                });
+
+                pause.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        gamePause();
+                    }
+                });
+
+                sideButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        endTurn();
+                    }
+                });
+
+                timer = new CountDownTimer(120000, 1000) {
+
+                    @SuppressLint("SetTextI18n")
+                    public void onTick(long millisUntilFinished) {
+                        pause.setText(Integer.toString((int) (millisUntilFinished/1000)));
+                        timeUntilFinished = millisUntilFinished;
+                    }
+
+                    public void onFinish() {
+                        endTurn();
+                    }
+                };
+                timer.start();
+
+                discreteSeekBar.setVisibility(View.GONE);
+                description.setVisibility(View.GONE);
             }
         });
-
-        sideButton.setText(R.string.end_turn);
-
-        previewLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlphaAnimation anim = new AlphaAnimation(1.0f, 0.0f);
-                anim.setDuration(200);
-                anim.setRepeatCount(0);
-                anim.setRepeatMode(Animation.REVERSE);
-                previewLayout.startAnimation(anim);
-                previewLayout.setVisibility(View.GONE);
-            }
-        });
-
-        pause.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                gamePause();
-            }
-        });
-
-        sideButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                endTurn();
-            }
-        });
-
-        timer = new CountDownTimer(120000, 1000) {
-
-            @SuppressLint("SetTextI18n")
-            public void onTick(long millisUntilFinished) {
-                pause.setText(Integer.toString((int) (millisUntilFinished/1000)));
-                timeUntilFinished = millisUntilFinished;
-            }
-
-            public void onFinish() {
-                endTurn();
-            }
-        };
-        timer.start();
-
-        discreteSeekBar.setVisibility(View.GONE);
-        description.setVisibility(View.GONE);
 
     }
 

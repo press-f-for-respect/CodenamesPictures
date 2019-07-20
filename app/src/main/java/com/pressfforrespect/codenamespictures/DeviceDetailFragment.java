@@ -2,6 +2,7 @@ package com.pressfforrespect.codenamespictures;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.net.wifi.WpsInfo;
 import android.net.wifi.p2p.WifiP2pConfig;
 import android.net.wifi.p2p.WifiP2pDevice;
@@ -58,6 +59,7 @@ public class DeviceDetailFragment extends Fragment implements WifiP2pManager.Con
     @SuppressLint("SetTextI18n")
     @Override
     public void onConnectionInfoAvailable(WifiP2pInfo wifiP2pInfo) {
+        System.out.println(wifiP2pInfo);
         if (progressDialog != null && progressDialog.isShowing()) {
             progressDialog.dismiss();
         }
@@ -72,7 +74,16 @@ public class DeviceDetailFragment extends Fragment implements WifiP2pManager.Con
         TextView tvDeviceInfo = (TextView) mContentView.findViewById(tv_deviceInfo);
         if(info.groupOwnerAddress.getHostAddress()!=null)
             tvDeviceInfo.setText("Group Owner IP - " + info.groupOwnerAddress.getHostAddress());
+
+        if(info.isGroupOwner) {
+            startActivity(new Intent(getActivity(), SpyMasterActivity.class));
+        } else {
+            Intent intent = new Intent(getActivity(), FieldOperatorActivity.class);
+            intent.putExtra("IP", info.groupOwnerAddress.getHostAddress());
+            startActivity(intent);
+        }
     }
+
 
     public void showDetails(WifiP2pDevice device) {
         this.device = device;

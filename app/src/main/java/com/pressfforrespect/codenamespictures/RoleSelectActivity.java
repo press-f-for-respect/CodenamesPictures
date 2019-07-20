@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
 import android.view.View;
 import com.google.android.material.button.MaterialButton;
@@ -48,7 +49,7 @@ public class RoleSelectActivity extends AppCompatActivity {
 
     private void selectFieldOperator(){
         clicked = true;
-        Intent myIntent = new Intent(this, FieldOperatorActivity.class);
+        Intent myIntent = new Intent(this, WifiActivity.class);
         startActivity(myIntent);
     }
 
