@@ -136,7 +136,7 @@ public abstract class GameActivity extends AppCompatActivity {
 
         setView();
 
-//        BackgroundMusic.getInstance().stop();
+        BackgroundMusic.getInstance().stop();
 
     }
 

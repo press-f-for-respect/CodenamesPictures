@@ -10,8 +10,9 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/wifi_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="50dp"
         android:elevation="4dp"
+        android:background="@color/colorPrimaryDark"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
     <LinearLayout
@@ -25,7 +26,8 @@
             android:id="@+id/fragment_list"
             android:layout_width="match_parent"
             android:layout_height="@dimen/phone_list_height"
-            tools:layout="@layout/device_list">
+            tools:layout="@layout/device_list"
+            android:layout_margin="5dp">
         </fragment>
 
         <fragment
@@ -33,7 +35,8 @@
             android:id="@+id/fragment_detail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:layout="@layout/device_detail">
+            tools:layout="@layout/device_detail"
+            android:layout_margin="5dp">
         </fragment>
     </LinearLayout>
 </LinearLayout>

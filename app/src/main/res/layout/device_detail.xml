@@ -43,7 +43,6 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_margin="5dp"
-            android:id="@+id/tv_statusText">
-        </TextView>
+            android:id="@+id/tv_statusText" />
     </LinearLayout>
 </FrameLayout>

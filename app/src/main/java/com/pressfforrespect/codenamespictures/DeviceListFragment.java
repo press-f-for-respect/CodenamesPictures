@@ -1,13 +1,16 @@
 package com.pressfforrespect.codenamespictures;
 
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.net.wifi.p2p.WifiP2pConfig;
 import android.net.wifi.p2p.WifiP2pDevice;
 import android.net.wifi.p2p.WifiP2pDeviceList;
 import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +43,8 @@ public class DeviceListFragment extends ListFragment implements WifiP2pManager.P
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mContentView = inflater.inflate(R.layout.device_list, null);
+        SharedPreferences sharedPref = getContext().getSharedPreferences(SettingActivity.KEY, Context.MODE_PRIVATE);
+        ((TextView) mContentView.findViewById(R.id.tv_myName)).setText(sharedPref.getString(String.valueOf(R.id.input_device_name), Settings.Secure.getString(getContext().getContentResolver(), Settings.Secure.ANDROID_ID).substring(0,5)));
         return mContentView;
     }
 
